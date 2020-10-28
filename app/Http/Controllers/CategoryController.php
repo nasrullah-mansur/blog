@@ -24,7 +24,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('category.index');
     }
 
     /**
@@ -35,7 +35,23 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $request->validate([
+        //     'name'=>'required|unique:category',
+        //     'slug'=>'required|unique:category',
+        // ]);
+
+        $categories = new Category;
+
+        $categories->name = $request->name;
+        $categories->slug = $request->slug;
+        $categories->p_id = $request->p_id;
+
+        $categories->save();
+
+        return redirect()->route('category.index');
+
+
+
     }
 
     /**

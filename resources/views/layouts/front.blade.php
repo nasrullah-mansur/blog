@@ -55,7 +55,7 @@
                     <div
                         class="col-lg-4 col-md-3 d-flex align-items-center justify-content-md-start justify-content-center">
                         <div class="header__logo text-center text-md-left mb-20">
-                            <a href="index.html"><img src="{{ asset('front/img/logo/logo.png') }}" alt="Header Logo"></a>
+                            <a href="{{ route('frontIndex') }}"><img src="{{ asset('front/img/logo/logo.png') }}" alt="Header Logo"></a>
                         </div>
                     </div>
                     <div class="col-lg-8 col-md-9">
@@ -71,9 +71,9 @@
                                         <div class="header__menu header__menu-white f-right">
                                             <nav id="mobile-menu">
                                                 <ul>
-                                                    <li class="active"><a href="index.html">Home</a></li>
-                                                    <li><a href="blog.html">Blog</a></li>
-                                                    <li><a href="contact.html">contact</a></li>
+                                                    <li class="{{ Route::is('frontIndex') ? 'active' : '' }}"><a href="{{ route('frontIndex') }}">Home</a></li>
+                                                    <li class="{{ Route::is('frontBlog') || Route::is('frontSingleBlog') ? 'active' : '' }}"><a href="{{ route('frontBlog') }}">Blog</a></li>
+                                                    <li><a href="{{ route('frontContact') }}">contact</a></li>
                                                 </ul>
                                             </nav>
                                         </div>

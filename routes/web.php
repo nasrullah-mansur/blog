@@ -78,8 +78,24 @@ Route::get('/admin', function() {
 
 
 
+// Backend Routes;
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::get('/', function() {
+        return 'ok';
+    });
+});
+
+
+
+
+
+
+
+
+
+
 // Front Routes;
-Route::get('/', 'FrontController@index');
-Route::get('/blog', 'FrontController@blog');
-Route::get('/single-blog', 'FrontController@show');
-Route::get('/contact', 'FrontController@contact');
+Route::get('/', 'FrontController@index')->name('frontIndex');
+Route::get('/blog', 'FrontController@blog')->name('frontBlog');
+Route::get('/single-blog', 'FrontController@show')->name('frontSingleBlog');
+Route::get('/contact', 'FrontController@contact')->name('frontContact');

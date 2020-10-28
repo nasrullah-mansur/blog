@@ -19,7 +19,7 @@ Category
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-4">
-                <form action="" method="POST" id="" enctype="multipart/form-data">
+                <form action="{{ route('category.store') }}" method="POST" id="" enctype="multipart/form-data">
                     @csrf
                     <div class="card">
                         <div class="body">
@@ -33,18 +33,16 @@ Category
                                     </div>
                                     <div class="col-lg-12 mt-3">
                                         <label for="slug">Category slug</label>
-                                        <input id="slug" rows="4" class="form-control no-resize" name="name">
+                                        <input id="slug" rows="4" class="form-control no-resize" name="slug">
                                     </div>
                                 </div>
                                 <div class="mt-3 mt-3">
                                     <label for="name-under d-block">Category under</label>
-                                    <select class="form-control show-tick">
+                                    <select class="form-control show-tick" name="p_id">
                                         <option value="" disabled selected>-- Please select --</option>
-                                        <option value="10">10</option>
-                                        <option value="20">20</option>
-                                        <option value="30">30</option>
-                                        <option value="40">40</option>
-                                        <option value="50">50</option>
+                                        <option value="1">one</option>
+                                        <option value="2">two</option>
+                                        <option value="3">three</option>
                                     </select>
                                 </div>
                                 <div class="mt-3">
@@ -187,4 +185,16 @@ Category
 
 @section('custom_js')
 <script src="{{ asset('back/js/pages/tables/jquery-datatable.js') }}"></script>
+<script>
+    $("#name").keyup(function(){
+        var Text = $(this).val();
+        Text = Text.toLowerCase();
+        Text = Text.replace(/[^a-zA-Z0-9]+/g,'-');
+        $("#slug").val(Text);
+        
+        let titleLength = $(this).val().length;
+        $('#title-count').text(titleLength);
+
+    });
+</script>
 @endsection

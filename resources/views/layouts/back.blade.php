@@ -269,7 +269,7 @@
 @yield('js_plugins')
 
 <script src="{{asset('back/bundles/mainscripts.bundle.js')}}"></script><!-- Custom Js -->
-<script src="{{asset('back/js/pages/blog/blog.js')}}"></script>
+<!-- <script src="{{asset('back/js/pages/blog/blog.js')}}"></script> -->
 
 @yield('custom_js')
 </body>
