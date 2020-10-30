@@ -82,11 +82,6 @@ Route::get('/admin', function() {
 
 
 
-
-
-
-
-
 // Backend Routes;
 Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/', function() {

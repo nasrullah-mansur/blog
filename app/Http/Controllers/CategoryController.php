@@ -73,7 +73,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        $cats = Category::with('childs')->where('p_id', 0)->get();
+        return view('category.edit', compact('category', 'cats'));
     }
 
     /**
@@ -85,7 +86,19 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'name'=>'required|unique:categories',
+            'slug'=>'required|unique:categories',
+        ]);
+
+
+        $category->name = $request->name;
+        $category->slug = $request->slug;
+        $category->p_id = $request->p_id;
+
+        $category->save();
+
+        return redirect()->route('category.index');
     }
 
     /**
@@ -97,35 +110,6 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         
-        
-
-
-        // if($category->childs->count()>0){
-
-
-
-        //     foreach ($category->childs as $subcat) {
-        //         $subcat->delete();
-        //     }
-            
-
-
-
-        // } else {
-
-        //     $category->delete();
-        // }
-
-
-
-
-
-
-
-
-
-
-
 
         $blogCat = Category::find(intval($id));
         if($blogCat->childs->count()>0){

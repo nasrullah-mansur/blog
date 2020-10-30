@@ -1,7 +1,7 @@
 @extends('layouts.back')
 
 @section('title')
-Category List
+Category Edit
 @endsection
 
 @section('page_title')
@@ -19,8 +19,9 @@ Category
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-4">
-                <form id="form" action="{{ route('category.store') }}" method="POST" id="" enctype="multipart/form-data">
+                <form id="form" action="{{ route('category.update', $category->id) }}" method="POST" id="" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     <div class="card">
                         <div class="body">
                             <div class="form-group">
@@ -28,7 +29,7 @@ Category
                                     <div class="col-lg-12">
                                         <label for="name">Category name (max 55 characters)</label>
                                         <input id="name" rows="4" class="form-control no-resize"
-                                            placeholder="Please type what you want..." name="name">
+                                            placeholder="Please type what you want..." name="name" value="{{ $category->name }}">
                                         <small><span id="title-count">0</span> of 55</small>
                                         @if($errors->has('name'))
                                         <span style="color: red;">{{ $errors->first('name') }}</span>
@@ -36,7 +37,7 @@ Category
                                     </div>
                                     <div class="col-lg-12 mt-3">
                                         <label for="slug">Category slug</label>
-                                        <input id="slug" rows="4" class="form-control no-resize" name="slug">
+                                        <input id="slug" rows="4" class="form-control no-resize" name="slug" value="{{ $category->slug }}">
                                         @if($errors->has('slug'))
                                         <span style="color: red;">{{ $errors->first('slug') }}</span>
                                         @endif
@@ -104,7 +105,7 @@ Category
                                 </tr>
                                 @foreach($cat->childs as $subcat)
                                 <tr>
-                                    <td>{!! $loop->iteration !!}</td>
+                                    <td>{!! $loop->iteration !!} . {{ $count++ }}</td>
                                     <td> - {!! $subcat->name !!}</td>
                                     <td>{!! $subcat->slug !!}</td>
                                     <td class="d-flex">
