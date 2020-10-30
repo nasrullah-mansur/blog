@@ -14,7 +14,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('category.index');
+        $cats = Category::with('childs')->where('p_id', 0)->get();
+        return view('category.index', compact('cats'));
+
     }
 
     /**
@@ -35,10 +37,10 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'name'=>'required|unique:category',
-        //     'slug'=>'required|unique:category',
-        // ]);
+        $request->validate([
+            'name'=>'required|unique:categories',
+            'slug'=>'required|unique:categories',
+        ]);
 
         $categories = new Category;
 
@@ -49,8 +51,6 @@ class CategoryController extends Controller
         $categories->save();
 
         return redirect()->route('category.index');
-
-
 
     }
 
@@ -94,8 +94,50 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        
+        
+
+
+        // if($category->childs->count()>0){
+
+
+
+        //     foreach ($category->childs as $subcat) {
+        //         $subcat->delete();
+        //     }
+            
+
+
+
+        // } else {
+
+        //     $category->delete();
+        // }
+
+
+
+
+
+
+
+
+
+
+
+
+        $blogCat = Category::find(intval($id));
+        if($blogCat->childs->count()>0){
+            foreach ($blogCat->childs as $subcat) {
+                $subcat->delete();
+            }
+        }
+
+        $blogCat->delete();
+
+
+        return redirect()->route('category.index');
+
     }
 }

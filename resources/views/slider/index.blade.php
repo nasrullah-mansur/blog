@@ -1,11 +1,11 @@
 @extends('layouts.back')
 
 @section('title')
-Banner Sidebar
+Banner Slider
 @endsection
 
 @section('page_title')
-Banner Sidebar
+Banner Slider
 @endsection
 
 @section('css_plugins')
@@ -14,7 +14,7 @@ Banner Sidebar
 @endsection
 
 @section('top_btn')
-<a href="#" class="btn btn-primary float-right" style="line-height: 22px; margin-right: 5px;">Add New Slide</a>
+<a href="{{ route('slider.create') }}" class="btn btn-primary float-right" style="line-height: 22px; margin-right: 5px;">Add New Slide</a>
 @endsection
 
 @section('content')
@@ -29,60 +29,70 @@ Banner Sidebar
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Text</th>
                                     <th>Image</th>
                                     <th>Status</th>
                                     <th>Created at</th>
                                     <th>Updated at</th>
-                                    <th>Posted by</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
                                     <th>#</th>
+                                    <th>Text</th>
                                     <th>Image</th>
                                     <th>Status</th>
                                     <th>Created at</th>
                                     <th>Updated at</th>
-                                    <th>Posted by</th>
                                     <th>Action</th>
                                 </tr>
                             </tfoot>
                             <tbody>
+                                @foreach($items as $item)
                                 <tr>
                                     <td>1</td>
+                                    
                                     <td>
-                                        <img src="{{ url('front/images/blog.jpg') }}" alt="Blog image" style="max-width: 200px; ">
+                                        <div style="min-width: 200px;">
+                                            <span> {!! $item->text !!} </span>
+                                        </div>
                                     </td>
+
+                                    <td>
+                                        <img src="{{ url('front/images/slider', $item->image) }}" alt="Blog image" style="max-width: 200px; ">
+                                    </td>
+                                    
                                     <td>
                                          <div style="width: 100px; text-align: center;">
-                                            <span class="badge badge-success">Published</span>
+                                            <span class="badge {{ $item->status == 1 ? 'badge-success' : 'badge-info' }}">{{ $item->status == 1 ? 'published' : 'unpublished' }}</span>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div style="width: 120px; text-align: center;">
+                                            <span> {{ $item->created_at->diffForHumans() }} </span>
                                         </div>
                                     </td>
                                     <td>
                                         <div style="width: 120px; text-align: center;">
-                                            <span>1 day ago</span>
+                                            <span> {{ $item->updated_at->diffForHumans() }} </span>
                                         </div>
                                     </td>
-                                    <td>
-                                        <div style="width: 120px; text-align: center;">
-                                            <span>1 day ago</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div style="width:150px;">
-                                            <a href="#">System Architect</a>
-                                        </div>
-                                    </td>
+                                   
                                     <td>
                                         <div class="action-btn d-flex">
-                                            <a href="javascript:void(0);" class="waves-effect waves-float btn-sm waves-green text-black mr-2"><i class="zmdi zmdi-edit" style="line-height: 1.8;"></i></a>
-                                            <form class="d-inline">
+                                            <a href="{{ route('slider.edit', $item->id) }}" class="waves-effect waves-float btn-sm waves-green text-black mr-2"><i class="zmdi zmdi-edit" style="line-height: 1.8;"></i></a>
+                                            <form class="d-inline" action="{{ route('slider.destroy', $item->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
                                                 <button class="waves-effect waves-float btn-sm waves-red text-black border-0"><i class="zmdi zmdi-delete" style="line-height: 1.8;"></i></button>
                                             </form>
                                         </div>
                                     </td>
                                 </tr>
+
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

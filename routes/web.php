@@ -1,5 +1,6 @@
 <?php
 
+use App\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::resource('/category', 'CategoryController');
+
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 Route::resource('/profile', 'ProfileController');
@@ -26,6 +27,14 @@ Route::resource('/tag', 'TagController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+Route::get('/test', function() {
+
+    
+
+});
 
 
 
@@ -59,7 +68,7 @@ Route::get('/new_reset', function() {
 
 
 Route::get('/banner_slider', function() {
-    return view('slider.banner');
+    return view('slider.create_banner');
 });
 
 Route::get('/banner_sidebar', function() {
@@ -83,6 +92,9 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/', function() {
         return 'ok';
     });
+
+    Route::resource('/category', 'CategoryController');
+    Route::resource('/slider', 'SliderController');
 });
 
 
