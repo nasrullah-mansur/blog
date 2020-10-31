@@ -47,9 +47,7 @@ Route::get('/edit_test_profile', function() {
 Route::get('/profile_pass_change', function() {
     return view('profile.pass');
 });
-Route::get('/social_media', function() {
-    return view('setting.social');
-});
+
 Route::get('/settings', function() {
     return view('setting.settings');
 });
@@ -90,6 +88,8 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
     Route::resource('/category', 'CategoryController');
     Route::resource('/slider', 'SliderController');
+    Route::resource('/social', 'SocialController');
+    
 });
 
 

@@ -13,6 +13,10 @@ Category
 <link rel="stylesheet" href="{{ asset('back/plugins/jquery-datatable/dataTables.bootstrap4.min.css') }}">
 @endsection
 
+@section('top_btn')
+<a href="{{ route('category.index') }}" class="btn btn-primary float-right" style="line-height: 22px; margin-right: 5px;">Add New Category</a>
+@endsection
+
 @section('content')
 <div class="container-fluid">
     <!-- Basic Validation -->

@@ -9,7 +9,9 @@ Theme Setting
 @endsection
 
 @section('css_plugins')
+<link rel="stylesheet" href="{{ asset('back/plugins/summernote/dist/summernote.css') }}"/>
 <link href="{{ asset('back/plugins/bootstrap-select/css/bootstrap-select.css') }}" rel="stylesheet" />
+<link rel="stylesheet" href="{{ asset('back/plugins/dropify/css/dropify.min.css') }}">
 @endsection
 
 @section('custom_css')
@@ -83,21 +85,6 @@ Theme Setting
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane in active" id="profile-info">
                                             <div class="form">
-                                                <div class="form-group d-lg-flex align-items-center">
-                                                    <label for="name">Company Name</label>
-                                                    <input id="name" type="text" class="form-control"
-                                                        placeholder="Company name">
-                                                </div>
-                                                <div class="form-group d-lg-flex align-items-center">
-                                                    <label for="web-name">Website name</label>
-                                                    <input id="web-name" type="text" class="form-control"
-                                                        placeholder="Website name">
-                                                </div>
-                                                <div class="form-group d-lg-flex align-items-center">
-                                                    <label for="web-url">Website URl</label>
-                                                    <input id="web-url" type="text" class="form-control"
-                                                        placeholder="Website URl">
-                                                </div>
                                                 <div class="form-group d-lg-flex align-items-start">
                                                     <label for="site-des">Site description</label>
                                                     <textarea rows="4" class="form-control no-y" id="site-des"
@@ -109,8 +96,8 @@ Theme Setting
                                                         placeholder="Meta keyword"></textarea>
                                                 </div>
                                                 <div class="form-group d-lg-flex align-items-start">
-                                                    <label for="copyright">Copyright</label>
-                                                    <textarea rows="4" class="form-control no-y" id="copyright"
+                                                    <label for="copyright">Footer Copyright</label>
+                                                    <textarea rows="4" class="form-control no-y summernote" id="copyright"
                                                         placeholder="Copyright"></textarea>
                                                 </div>
 
@@ -162,7 +149,64 @@ Theme Setting
                                             </div>
                                         </div>
 
-                                        <div role="tabpanel" class="tab-pane" id="profile-property"></div>
+                                        <div role="tabpanel" class="tab-pane" id="profile-property">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <label>Header Logo</label>
+                                                            <input name="header_logo" type="file" class="dropify">
+                                                            <small>File format must be in the format jpg, jpeg, png, and the size 762x242</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <label>Footer Logo</label>
+                                                            <input name="footer_logo" type="file" class="dropify">
+                                                            <small>File format must be in the format jpg, jpeg, png, and the size 762x242</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <label>Favicon</label>
+                                                            <input name="favicon" type="file" class="dropify">
+                                                            <small> File format must be in the format jpg, jpeg, ico ,png and the max size 256x256px.</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <label>Preloader</label>
+                                                            <input name="preloader" type="file" class="dropify">
+                                                            <small>File format must be in the format jpg, jpeg, png, and recommended size 200px</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <label>Page Banner</label>
+                                                            <input name="page_banner" type="file" class="dropify">
+                                                            <small>File format must be in the format jpg, jpeg, png, and the max size 1484x1200px</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <label>Dashboard Logo</label>
+                                                            <input name="dashboard_logo" type="file" class="dropify">
+                                                            <small>File format must be in the format jpg, jpeg, png, and recommended size 100px</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                         <div role="tabpanel" class="tab-pane" id="profile-config">
                                             <div class="row with-control">
@@ -209,4 +253,10 @@ Theme Setting
 
 @section('js_plugins')
 <script src="{{ asset('back/js/pages/forms/basic-form-elements.js') }}"></script>
+<script src="{{ asset('back/plugins/summernote/dist/summernote.js') }}"></script>
+<script src="{{ asset('back/plugins/dropify/js/dropify.min.js') }}"></script>
+@endsection
+
+@section('custom_js')
+<script src="{{ asset('back/js/pages/forms/dropify.js') }}"></script>
 @endsection

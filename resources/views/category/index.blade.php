@@ -28,7 +28,7 @@ Category
                                     <div class="col-lg-12">
                                         <label for="name">Category name (max 55 characters)</label>
                                         <input id="name" rows="4" class="form-control no-resize"
-                                            placeholder="Please type what you want..." name="name">
+                                            placeholder="Please type what you want..." name="name" value="{{ old('name') }}">
                                         <small><span id="title-count">0</span> of 55</small>
                                         @if($errors->has('name'))
                                         <span style="color: red;">{{ $errors->first('name') }}</span>
@@ -36,7 +36,7 @@ Category
                                     </div>
                                     <div class="col-lg-12 mt-3">
                                         <label for="slug">Category slug</label>
-                                        <input id="slug" rows="4" class="form-control no-resize" name="slug">
+                                        <input id="slug" rows="4" class="form-control no-resize" name="slug" value="{{ old('slug') }}">
                                         @if($errors->has('slug'))
                                         <span style="color: red;">{{ $errors->first('slug') }}</span>
                                         @endif
