@@ -15,26 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
-
-
-Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
-Route::resource('/profile', 'ProfileController');
-Route::resource('/post', 'PostController');
-Route::resource('/tag', 'TagController');
-
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-
-Route::get('/test', function() {
-
-    
-
-});
+Route::resource('/profile', 'ProfileController');
+Route::resource('/post', 'PostController');
+Route::resource('/tag', 'TagController');
 
 
 
@@ -73,7 +60,7 @@ Route::get('/banner_sidebar', function() {
     return view('slider.sidebar');
 });
 
-Route::get('/admin', function() {
+Route::middleware('auth')->get('/admin', function() {
     return 'ok';
 });
 
@@ -89,7 +76,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::resource('/category', 'CategoryController');
     Route::resource('/slider', 'SliderController');
     Route::resource('/social', 'SocialController');
-    
+    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 });
 
 

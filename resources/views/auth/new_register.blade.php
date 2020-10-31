@@ -22,7 +22,7 @@
             <div class="col-lg-4 m-auto col-sm-12">
                 <form class="card auth_form">
                     <div class="header">
-                        <img class="logo" src="{{ url('back/images/logo.svg') }}" alt="">
+                        <img class="logo" src="{{ url('front/images/logo.png') }}" alt="">
                         <h5>Sign Up</h5>
                         <span>Register a new membership</span>
                     </div>
@@ -37,6 +37,9 @@
                             <div class="form-group mb-3">
                                 <input type="password" class="form-control" placeholder="Password">
                             </div>
+                            <div class="form-group mb-3">
+                                <input type="password" class="form-control" placeholder="Confirm password">
+                            </div>
                             <div class="checkbox">
                                 <input id="remember_me" type="checkbox">
                                 <label for="remember_me">I read and agree to the <a href="javascript:void(0);">terms of usage</a></label>
@@ -44,7 +47,7 @@
                             <button type="submit" class="btn btn-primary btn-block waves-effect waves-light">SIGN UP</button>
                         </form>
                         <div class="signin_with mt-3">
-                            <a class="link" href="#">You already have a membership?</a>
+                            <a style="font-size: 12px;" class="link" href="#">Have you already a membership?</a>
                         </div>
                     </div>
                 </form>
@@ -63,5 +66,36 @@
 <!-- Jquery Core Js -->
 <script src="{{ asset('back/bundles/libscripts.bundle.js') }}"></script>
 <script src="{{ asset('back/bundles/vendorscripts.bundle.js') }}"></script> <!-- Lib Scripts Plugin Js -->
+<script>
+    // Password show hide;
+let allPassArea = document.querySelectorAll('input[type="password"');
+allPassArea.forEach(function (value) {
+    value.style.cssText = 'width: 100%; ';
+    // Icon Class name;
+    let openEyeClassName = 'zmdi zmdi-eye';
+    let closeEyeClassName = 'zmdi zmdi-eye-off'; 
+    let passArea = document.createElement('div');
+    passArea.classList.add('password_area');
+    let eyeOn = document.createElement('i');
+    eyeOn.setAttribute('class', openEyeClassName);
+    passArea.appendChild(value.cloneNode(true));
+    value.parentNode.replaceChild(passArea, value);
+    passArea.appendChild(eyeOn);
+    eyeOn.addEventListener('click', function (e) {
+        if (e.target.classList.value == openEyeClassName) {
+            this.setAttribute('class', closeEyeClassName);
+            this.previousSibling.setAttribute('type', 'text');
+        } else if (e.target.classList.value == closeEyeClassName) {
+            this.setAttribute('class', openEyeClassName);
+            this.previousSibling.setAttribute('type', 'password');
+        }
+    });
+
+// CSS;
+passArea.style.cssText = 'position: relative;';
+eyeOn.style.cssText = 'position: absolute; z-index: 1; top: 50%; right: 15px; transform: translateY(-50%); cursor: pointer; color: #666;';
+
+});
+</script>
 </body>
 </html>
