@@ -109,7 +109,12 @@
             </ul>
         </li>
         <li><a href="javascript:void(0);" class="" title="Setting"><i class="zmdi zmdi-settings"></i></a></li>
-        <li><a href="sign-in.html" class="mega-menu" title="Sign Out"><i class="zmdi zmdi-power"></i></a></li>
+        <li>
+            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> <i class="zmdi zmdi-power"></i> </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
+        </li>
     </ul>
 </div>
 
