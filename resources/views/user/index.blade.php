@@ -25,8 +25,12 @@ Our Profile
                     <ul class="header-dropdown" style="list-style: none; position: absolute; right: 15px; top: 15px;">
                         <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="zmdi zmdi-edit"></i> </a>
                             <ul class="dropdown-menu dropdown-menu-right">
-                                <li><a href="javascript:void(0);">Edit</a></li>
-                                <li><a href="javascript:void(0);">Delete</a></li>
+                                <li><a href="{{ route('user.edit', $user->id) }}">Edit</a></li>
+                                <li><a href="javascript:void(0);" onclick="event.preventDefault(); document.getElementById('delete-form').submit();">Delete</a></li>
+                                <form id="delete-form" action="{{ route('user.destroy', $user->id) }}" method="POST" class="d-none">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
                             </ul>
                         </li>
                     </ul>

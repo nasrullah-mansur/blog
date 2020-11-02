@@ -19,11 +19,14 @@ Create a new user
         <div class="col-lg-6 m-auto col-sm-12">
             <div class="card">
             <div class="body">
-                <form action="{{ route('user.store') }}" method="POST">
+                <form action="{{ isset($user) ? route('user.update', $user->id) : route('user.store') }}" method="POST">
                     @csrf
+                    @if(isset($user))
+                    @method('PUT')
+                    @endif
                     <div class="form-group mb-3">
                         <input type="text" class="form-control  @error('username') is-invalid @enderror"
-                            placeholder="Username" name="username" value="{{ old('username') }}" required
+                            placeholder="Username" name="username" value="{{isset($user) ? $user->username : old('username') }}" required
                             autocomplete="name" autofocus>
                         @error('username')
                         <span class="invalid-feedback" role="alert">
@@ -33,7 +36,7 @@ Create a new user
                     </div>
                     <div class="form-group mb-3">
                         <input type="email" class="form-control  @error('email') is-invalid @enderror"
-                            placeholder="Enter email" name="email" value="{{ old('email') }}" required
+                            placeholder="Enter email" name="email" value="{{isset($user) ? $user->email : old('email') }}" required
                             autocomplete="email">
                         @error('email')
                         <span class="invalid-feedback" role="alert">

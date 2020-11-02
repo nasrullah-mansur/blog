@@ -56,13 +56,17 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/', 'HomeController@index')->name('dashboard');
     Route::resource('/profile', 'ProfileController');
 
+    
 
-
-    // Supper admin;
-    Route::resource('/user', 'UserController');
+   
 
 
 });
+
+// Supper admin;
+Route::resource('/user', 'UserController');
+
+
 
 
 

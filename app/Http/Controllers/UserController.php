@@ -85,9 +85,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('user.create', compact('user'));
     }
 
     /**
@@ -97,9 +97,48 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        if($user->username == $request->username) {
+            if($user->email == $request->email){
+                $this->validate($request, array(
+                    'username' => ['required', 'string', 'max:255', 'alpha_dash'],
+                    'role' => ['required'],
+                    'email' => ['required', 'string', 'email', 'max:255'],
+                    'password' => ['required', 'string', 'min:8', 'confirmed'],
+                ));
+
+            } else {
+                $this->validate($request, array(
+                    'username' => ['required', 'string', 'max:255', 'alpha_dash'],
+                    'role' => ['required'],
+                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                    'password' => ['required', 'string', 'min:8', 'confirmed'],
+                ));
+            }
+         } else {
+            $this->validate($request, array(
+                'username' => ['required', 'string', 'max:255', 'unique:users', 'alpha_dash'],
+                'role' => ['required'],
+                'email' => ['required', 'string', 'email', 'max:255'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+            ));
+         }
+
+
+
+         $user->username = $request->username;
+         $user->email = $request->email;
+         $user->role = $request->role;
+         $user->password = $request->password;
+
+         $user->save();
+
+        // Mail::to($request->email)->send(new RegistrationMail($request));
+
+
+        return redirect()->route('user.index');
+
     }
 
     /**
@@ -108,9 +147,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+
+        $user->delete();
+        return redirect()->route('user.index');
+
     }
 
 
