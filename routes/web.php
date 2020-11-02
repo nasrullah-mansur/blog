@@ -13,22 +13,21 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes(['register' => false]);
 
-Auth::routes();
 
 
-Route::resource('/profile', 'ProfileController');
 Route::resource('/post', 'PostController');
 Route::resource('/tag', 'TagController');
 
 
 // extra route;
-Route::get('/edit_test_profile', function() {
-    return view('profile.edit');
-});
-Route::get('/profile_pass_change', function() {
-    return view('profile.pass');
-});
+// Route::get('/edit_test_profile', function() {
+//     return view('profile.edit');
+// });
+// Route::get('/profile_pass_change', function() {
+//     return view('profile.pass');
+// });
 
 Route::get('/settings', function() {
     return view('setting.settings');
@@ -55,6 +54,14 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::resource('/slider', 'SliderController');
     Route::resource('/social', 'SocialController');
     Route::get('/', 'HomeController@index')->name('dashboard');
+    Route::resource('/profile', 'ProfileController');
+
+
+
+    // Supper admin;
+    Route::resource('/user', 'UserController');
+
+
 });
 
 

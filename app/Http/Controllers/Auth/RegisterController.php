@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use App\Http\Controllers\Controller;
+use App\Profile;
 use App\Mail\RegistrationMail;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Providers\RouteServiceProvider;
@@ -53,6 +54,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'role' => ['required'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -68,22 +70,33 @@ class RegisterController extends Controller
     {
         $user = User::create([
             'username' => $data['username'],
+            'role' => $data['role'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
 
-        $user_info = array(
-            'username' => $data['username'],
-            'email' => $data['email'],
-            'password' => $data['password'],
-        );
+        Profile::create([
+            'user_id' => $user->id,
+        ]);
 
-        Mail::to($user['email'])->send(new RegistrationMail($user_info));
         
         return $user;
     }
 
+  /**
+     * The user has been registered.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function registered($user)
+    {
+       
+        // Mail::to($user->email)->send(new RegistrationMail($user));
 
+        
+    }
     
 
 

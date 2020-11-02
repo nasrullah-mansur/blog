@@ -57,6 +57,15 @@
                             <div class="form-group mb-3">
                                 <input type="password" class="form-control" placeholder="Confirm password" name="password_confirmation" required autocomplete="new-password">
                             </div>
+                            <div class="form-group mb-3">
+                                <div class="radio">
+                                    <input type="radio" id="blogger" name="role" value="2" checked>
+                                    <label for="blogger">Blogger</label>
+                               
+                                    <input type="radio" id="administrator" name="role" value="3">
+                                    <label for="administrator">Administrator</label>
+                                </div>
+                            </div>
                             <button type="submit" class="btn btn-primary btn-block waves-effect waves-light">{{ __('Register') }}</button>
                         </form>
                         <div class="signin_with mt-3">

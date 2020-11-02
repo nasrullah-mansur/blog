@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\Profile;
 use Illuminate\Http\Request;
+use App\Mail\RegistrationMail;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
-class ProfileController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,13 +18,9 @@ class ProfileController extends Controller
      */
     public function index()
     {
+        $users = User::with('profile')->paginate(6);
 
-        if(auth()->user()->role == 1) {
-            return view('profile.index');
-        } elseif(auth()->user()->role == 2) {
-            return view('profile.edit');
-        } 
-        
+        return view('user.index', compact('users'));
     }
 
     /**
@@ -29,7 +30,7 @@ class ProfileController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.create');
     }
 
     /**
@@ -40,7 +41,31 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $this->validate($request, array(
+            'username' => ['required', 'string', 'max:255', 'unique:users', 'alpha_dash'],
+            'role' => ['required'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ));
+        
+        $user = User::create([
+            'username' => $request['username'],
+            'role' => $request['role'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+        ]);
+
+        Profile::create([
+            'user_id' => $user->id,
+        ]);
+
+        // Mail::to($request->email)->send(new RegistrationMail($request));
+
+         
+
+        
+        return redirect()->route('user.index');
     }
 
     /**
@@ -62,7 +87,7 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
-        
+        //
     }
 
     /**
@@ -87,4 +112,6 @@ class ProfileController extends Controller
     {
         //
     }
+
+
 }

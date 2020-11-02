@@ -10,15 +10,15 @@ use Illuminate\Queue\SerializesModels;
 class RegistrationMail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $user_info;
+    public $user;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($user_info)
+    public function __construct($user)
     {
-        return $this->user_info = $user_info;
+        return $this->user = $user;
     }
 
     /**
@@ -28,6 +28,6 @@ class RegistrationMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.register')->subject('Registration confirmation')->with('user_info', $this->user_info);
+        return $this->view('mail.register')->subject('Registration confirmation')->with('request', $this->user);
     }
 }

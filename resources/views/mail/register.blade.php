@@ -6,8 +6,8 @@
     <title>Document</title>
 </head>
 <body>
-    Hello, {{ $user_info['username']}} <br> 
-    Your email is, {{ $user_info['email'] }} <br>
-    Your password is, {{ $user_info['password'] }}
+    Hello, {{ $user['username']}} <br> 
+    Your email is, {{ $user['email'] }} <br>
+    Your password is, {{ $user['password'] }}
 </body>
 </html>
