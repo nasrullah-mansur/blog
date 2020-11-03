@@ -1,3 +1,17 @@
+
+<?php
+use App\User;
+$user_info = User::with('profile')->where('id', auth()->user()->id)->get();
+
+if($user_info->first()->role == 1) {
+    $user_role = 'Super Admin';
+} elseif($user_info->first()->role == 2) {
+    $user_role = 'Administrator';
+} else {
+    $user_role = 'Blogger';
+}
+?>
+
 <!doctype html>
 <html class="no-js " lang="en">
 <head>
@@ -106,9 +120,10 @@
                         </li>
                     </ul>
                 </li>
+                <li class="footer"> <a href="javascript:void(0);">View All Notifications</a> </li>
             </ul>
         </li>
-        <li><a href="javascript:void(0);" class="" title="Setting"><i class="zmdi zmdi-settings"></i></a></li>
+        <li><a href="{{ route('setting.index') }}" class="" title="Setting"><i class="zmdi zmdi-settings"></i></a></li>
         <li>
             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> <i class="zmdi zmdi-power"></i> </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -128,64 +143,59 @@
         <ul class="list">
             <li>
                 <div class="user-info">
-                    <a class="image" href="profile.html"><img src="{{ url('back/images/profile_av.jpg') }}" alt="User"></a>
+                    <a class="image" href="profile.html"><img src="{{ $user_info->first()->profile->image == '' ? url('back/images/profile_av.jpg') : $user_info->first()->profile->image}}" alt="User"></a>
                     <div class="detail">
-                        <h4>Michael</h4>
-                        <small>Super Admin</small>                        
+                        <h4>{{ $user_info->first()->profile->name == '' ? 'Your Name' : $user_info->first()->profile->image }}</h4>
+                        <small>{{ $user_role }}</small>                        
                     </div>
                 </div>
             </li>
-            <li><a href="{{ route('dashboard') }}"><i class="zmdi zmdi-home"></i><span>Dashboard</span></a></li>
-            <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-collection-item"></i><span>Pages</span></a>
+            <li class="{{ (Request::is('admin') ? 'active' : ' ') }}"><a href="{{ route('dashboard') }}"><i class="zmdi zmdi-home"></i><span>Dashboard</span></a></li>
+            <li class="{{ (Request::is('admin/profile*', 'admin/change-password') ? 'active open' : '') }}"><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-account"></i><span>Our Profile</span></a>
                 <ul class="ml-menu">
-                    <li><a href="sign-in.html">All Pages</a></li>
-                    <li><a href="sign-up.html">Create New Page</a></li>
+                    <li class="{{ Route::is('profile.index') ? 'active' : '' }}"><a href="{{ route('profile.index') }}">My Profile</a></li>
+                    <li class="{{ (Request::is('admin/change-password') ? 'active' : '') ? 'active' : '' }}"><a href="{{ route('change.password') }}">Change Password</a></li>
                 </ul>
             </li>
-            <li ><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-slideshare"></i><span>Slider</span></a>
+            @if($user_info->first()->role == 1 || $user_info->first()->role == 2)
+            <li class="{{ (Request::is('admin/slider*') ? 'active open' : '') }}"><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-slideshare"></i><span>Slider</span></a>
                 <ul class="ml-menu">
-                    <li><a href="sign-in.html">Banner Slider</a></li>
-                    <li><a href="sign-in.html">Sidebar Slider</a></li>
-                    <li><a href="sign-up.html">Add New Slider</a></li>
+                    <li class="{{ Route::is('slider.index') ? 'active' : '' }}"><a href="{{ route('slider.index') }}">Banner Slider</a></li>
+                    <li class="{{ (Route::is('slider.create') ? 'active' : '') }}"><a href="{{ route('slider.create') }}">Add New Slider</a></li>
                 </ul>
             </li>
-            <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-account"></i><span>Our Profile</span></a>
+            
+            <li class="{{ (Request::is('admin/setting*', 'admin/social*') ? 'active open' : '') }}"><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-settings"></i><span>Setting</span></a>
                 <ul class="ml-menu">
-                    <li><a href="sign-in.html">My Profile</a></li>
-                    <li><a href="sign-up.html">Change Password</a></li>
-                </ul>
-            </li>
-            <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-settings"></i><span>Setting</span></a>
-                <ul class="ml-menu">
-                    <li><a href="sign-in.html">Theme Setting</a></li>
+                    <li class="{{ Route::is('setting.index') ? 'active' : '' }}"><a href="{{ route('setting.index') }}">Theme Setting</a></li>
                     <li><a href="sign-in.html">Menu</a></li>
-                    <li><a href="sign-up.html">Social Media</a></li>
+                    <li class="{{ Route::is('social.index') ? 'active' : '' }}"><a href="{{ route('social.index') }}">Social Media</a></li>
                 </ul>
             </li>
-            <li class="active open"> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-blogger"></i><span>Post</span></a>
+            @endif
+            <li class="{{ (Request::is('admin/post*', 'admin/category*', 'admin/tag*') ? 'active open' : '') }}"> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-blogger"></i><span>Post</span></a>
                 <ul class="ml-menu">
-                    <li class="active"><a href="{{ route('post.index') }}">Post List</a></li>
-                    <li><a href="{{ route('post.create') }}">Create Post</a></li>
-                    <li><a href="{{ route('category.index') }}">Category</a></li>
+                    <li class="{{ Route::is('post.index') ? 'active' : '' }}"><a href="{{ route('post.index') }}">Post List</a></li>
+                    <li class="{{ Route::is('post.create') ? 'active' : '' }}"><a href="{{ route('post.create') }}">Create Post</a></li>
+                    <li class="{{ Route::is('category.index', 'category.edit') ? 'active' : '' }}"><a href="{{ route('category.index') }}">Category</a></li>
                     <li><a href="{{ route('tag.index') }}">Tag</a></li>
                 </ul>
             </li>
+            @if($user_info->first()->role == 1)
             <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-folder"></i><span>Media</span></a>
                 <ul class="ml-menu">
                     <li><a href="file-dashboard.html">Images</a></li>
                     <li><a href="file-documents.html">File Manager</a></li>
                 </ul>
             </li>
-            <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-accounts"></i><span>Users</span></a>
+            
+            <li class="{{ (Request::is('admin/user*') ? 'active open' : '') }}"><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-accounts"></i><span>Users</span></a>
                 <ul class="ml-menu">
-                    <li><a href="sign-in.html">All User</a></li>
-                    <li><a href="{{ route('profile.index') }}">Administrator</a></li>
-                    <li><a href="sign-up.html">Add New User</a></li>
-                    <li><a href="forgot-password.html">Subscriber</a></li>
-                    <li><a href="forgot-password.html">Roles</a></li>
+                    <li class="{{ Route::is('user.index') ? 'active' : '' }}"><a href="{{ route('user.index') }}">All User</a></li>
+                    <li class="{{ Route::is('user.create') ? 'active' : '' }}"><a href="{{ route('user.create') }}">Add New User</a></li>
                 </ul>
             </li>
-            
+            @endif
         </ul>
     </div>
 </aside>

@@ -252,7 +252,6 @@ Theme Setting
 @endsection
 
 @section('js_plugins')
-<script src="{{ asset('back/js/pages/forms/basic-form-elements.js') }}"></script>
 <script src="{{ asset('back/plugins/summernote/dist/summernote.js') }}"></script>
 <script src="{{ asset('back/plugins/dropify/js/dropify.min.js') }}"></script>
 @endsection

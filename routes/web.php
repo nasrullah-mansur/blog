@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -57,6 +58,8 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
     Route::get('change-password', 'passwordController@index');
     Route::post('change-password', 'passwordController@store')->name('change.password');
+
+    Route::resource('/setting', 'SettingController');
 });
 
 
