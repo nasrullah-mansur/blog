@@ -25,20 +25,20 @@ Create a new user
                     @method('PUT')
                     @endif
                     <div class="form-group mb-3">
-                        <input type="text" class="form-control  @error('username') is-invalid @enderror"
-                            placeholder="Username" name="username" value="{{isset($user) ? $user->username : old('username') }}" required
-                            autocomplete="name" autofocus>
-                        @error('username')
+                        <input type="email" class="form-control  @error('email') is-invalid @enderror"
+                            placeholder="Enter email" name="email" value="{{isset($user) ? $user->email : old('email') }}" required
+                            autocomplete="email">
+                        @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
                     <div class="form-group mb-3">
-                        <input type="email" class="form-control  @error('email') is-invalid @enderror"
-                            placeholder="Enter email" name="email" value="{{isset($user) ? $user->email : old('email') }}" required
-                            autocomplete="email">
-                        @error('email')
+                        <input type="text" class="form-control  @error('phone') is-invalid @enderror"
+                            placeholder="Phone no" name="phone" value="{{isset($user) ? $user->phone : old('phone') }}" required
+                            autocomplete="name">
+                        @error('phone')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

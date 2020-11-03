@@ -98,7 +98,7 @@ class SliderController extends Controller
         $this->validate($request, array(
             'text' => 'required|min:5|max:255',
             'status' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,jpg,gif,svg,png|max:2048',
+            'image' => 'required|image|mimes:jpeg,jpg,gif,svg,png|max:2048',
         ));
 
         $slider->text = $request->text;

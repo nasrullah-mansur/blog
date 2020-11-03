@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,9 +26,7 @@ Route::resource('/tag', 'TagController');
 // Route::get('/edit_test_profile', function() {
 //     return view('profile.edit');
 // });
-// Route::get('/profile_pass_change', function() {
-//     return view('profile.pass');
-// });
+
 
 Route::get('/settings', function() {
     return view('setting.settings');
@@ -56,15 +55,19 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/', 'HomeController@index')->name('dashboard');
     Route::resource('/profile', 'ProfileController');
 
-    
-
-   
-
-
+    Route::get('change-password', 'passwordController@index');
+    Route::post('change-password', 'passwordController@store')->name('change.password');
 });
 
+
 // Supper admin;
-Route::resource('/user', 'UserController');
+Route::middleware(['auth','super_admin'])->prefix('admin')->group(function () {
+    Route::resource('/user', 'UserController');
+});
+
+
+
+
 
 
 

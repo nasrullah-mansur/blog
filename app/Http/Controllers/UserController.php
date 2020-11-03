@@ -19,7 +19,6 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with('profile')->paginate(6);
-
         return view('user.index', compact('users'));
     }
 
@@ -43,14 +42,14 @@ class UserController extends Controller
     {
 
         $this->validate($request, array(
-            'username' => ['required', 'string', 'max:255', 'unique:users', 'alpha_dash'],
-            'role' => ['required'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['required', 'min:11' , 'regex:/^([0-9\s\-\+\(\)]*)$/' , 'unique:users'], 
+            'role' => ['required'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ));
         
         $user = User::create([
-            'username' => $request['username'],
+            'phone' => $request['phone'],
             'role' => $request['role'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
@@ -76,7 +75,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect()->route('user.index');
     }
 
     /**
@@ -99,10 +98,10 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        if($user->username == $request->username) {
+        if($user->phone == $request->phone) {
             if($user->email == $request->email){
                 $this->validate($request, array(
-                    'username' => ['required', 'string', 'max:255', 'alpha_dash'],
+                    'phone' => ['required', 'min:11' , 'numeric'],
                     'role' => ['required'],
                     'email' => ['required', 'string', 'email', 'max:255'],
                     'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -110,7 +109,7 @@ class UserController extends Controller
 
             } else {
                 $this->validate($request, array(
-                    'username' => ['required', 'string', 'max:255', 'alpha_dash'],
+                    'phone' => ['required', 'min:11' , 'numeric'],
                     'role' => ['required'],
                     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                     'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -118,7 +117,7 @@ class UserController extends Controller
             }
          } else {
             $this->validate($request, array(
-                'username' => ['required', 'string', 'max:255', 'unique:users', 'alpha_dash'],
+                'phone' => ['required', 'min:11' , 'numeric' , 'unique:users'],
                 'role' => ['required'],
                 'email' => ['required', 'string', 'email', 'max:255'],
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -127,7 +126,7 @@ class UserController extends Controller
 
 
 
-         $user->username = $request->username;
+         $user->phone = $request->phone;
          $user->email = $request->email;
          $user->role = $request->role;
          $user->password = $request->password;
@@ -154,6 +153,5 @@ class UserController extends Controller
         return redirect()->route('user.index');
 
     }
-
 
 }

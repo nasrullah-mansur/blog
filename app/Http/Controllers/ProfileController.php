@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Profile;
+use App\User;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -14,7 +15,12 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        //
+
+        $id = auth()->user()->id;
+        $profile = Profile::with('user')->where('user_id', $id)->get();
+        $profile = $profile[0];
+        return view('profile.edit', compact('profile'));
+
     }
 
     /**
@@ -24,7 +30,7 @@ class ProfileController extends Controller
      */
     public function create()
     {
-        //
+       return redirect()->route('profile.index');
     }
 
     /**
@@ -35,7 +41,7 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -46,7 +52,7 @@ class ProfileController extends Controller
      */
     public function show(Profile $profile)
     {
-        //
+        return redirect()->route('profile.index');
     }
 
     /**
@@ -57,7 +63,7 @@ class ProfileController extends Controller
      */
     public function edit(Profile $profile)
     {
-        //
+        return redirect()->route('profile.index');
     }
 
     /**
@@ -69,7 +75,30 @@ class ProfileController extends Controller
      */
     public function update(Request $request, Profile $profile)
     {
-        //
+
+        $request->validate([
+            'facebook'=>'url|nullable',
+            'twitter'=>'url|nullable',
+            'linkedin'=>'url|nullable',
+            'name'=>'nullable',
+            'occupation'=>'nullable',
+            'about'=>'nullable',
+            'image'=>'nullable',
+
+        ]);
+        
+        $profile->name = $request->name;
+        $profile->occupation = $request->occupation;
+        $profile->about = $request->about;
+        $profile->facebook = $request->facebook;
+        $profile->twitter = $request->twitter;
+        $profile->linkedin = $request->linkedin;
+        $profile->image = $request->image;
+
+        $profile->update();
+
+        return redirect()->route('profile.index');
+        
     }
 
     /**
@@ -80,6 +109,6 @@ class ProfileController extends Controller
      */
     public function destroy(Profile $profile)
     {
-        //
+        return redirect()->route('profile.index');
     }
 }

@@ -34,24 +34,33 @@ Our Profile
                             </ul>
                         </li>
                     </ul>
-                    <img src="{{ asset('back/images/profile_av.jpg') }}" class="rounded-circle" alt="profile-image">
-                    <h4 class="m-t-10">{{ ucfirst($user->username) }}</h4>
-                    <a href="#">{{ $user->email }}</a>
+                    <img style="max-width: 180px;" src="{{ $user->profile->image == '' ? asset('back/images/profile_av.jpg') :  $user->profile->image}}" class="rounded-circle" alt="profile-image">
+                    <h4 class="m-t-10">{{ $user->profile->name == '' ? 'N/A' : ucfirst($user->profile->name) }}</h4>
+                    <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
                     <div class="row">
                         <div class="col-12 mb-4">
                             <ul class="social-links list-unstyled">
-                                <li><a href="#" title="facebook"><i class="zmdi zmdi-facebook-box"></i></a></li>
-                                <li><a href="#" title="twitter"><i class="zmdi zmdi-twitter-box"></i></a></li>
-                                <li><a href="#" title="instagram"><i class="zmdi zmdi-instagram"></i></a></li>
+                                <li><a href="{{ $user->profile->facebook == '' ? '#' :  $user->profile->facebook}}" title="facebook"><i class="zmdi zmdi-facebook-box"></i></a></li>
+                                <li><a href="{{ $user->profile->twitter == '' ? '#' :  $user->profile->twitter}}" title="twitter"><i class="zmdi zmdi-twitter-box"></i></a></li>
+                                <li><a href="{{ $user->profile->linkedin == '' ? '#' :  $user->profile->linkedin}}" title="instagram"><i class="zmdi zmdi-linkedin-box"></i></a></li>
                             </ul>
                         </div>
+                        <?php 
+                            if($user->role == 1) {
+                                $role = 'Super Admin';
+                            } elseif($user->role == 2) {
+                                $role = 'Administrator';
+                            } else {
+                                $role = 'Blogger';
+                            }
+                        ?>
                         <div class="col-5 text-left">
                             <small>User Role</small>
-                            <p>Supper Admin</p>
+                            <p>{{ $role }}</p>
                         </div>
                         <div class="col-7 text-right">
                             <small>Phone</small>
-                            <p><a class="text-black" href="#">01728619733</a></p>
+                            <p><a class="text-black" href="tel:{{ $user->phone }}">{{ $user->phone }}</a></p>
                         </div>
                     </div>
                 </div>

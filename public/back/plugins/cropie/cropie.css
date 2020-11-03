@@ -290,3 +290,19 @@ background: #ccc;
     transform: translateX(-50%);
 }
 
+/* for edit */
+#old_img {
+    width: 250px;
+    height: 250px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+#use-another {
+    position: absolute;
+    top: calc(100% + 15px);
+    left: 50%;
+    transform: translateX(-50%);
+}
