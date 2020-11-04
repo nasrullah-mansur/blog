@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Tag;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class TagController extends Controller
@@ -14,7 +15,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        return view('tag.index');
+        $tags = Tag::all();
+        return view('tag.index', compact('tags'));
     }
 
     /**
@@ -24,7 +26,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        return redirect()->route('tag.index');
     }
 
     /**
@@ -35,7 +37,30 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, array(
+            
+        ));
+
+        $request->validate([
+            'name' => 'required|string'
+        ], [
+            'name.required' => 'The tags filed is required',
+        ]);
+
+        $tags = explode(",", $request->name);
+
+        foreach($tags as $tag){
+            $tagDatabase =  Tag::where('name', $tag)->first();
+            if($tagDatabase == ''){
+                $tag_table = new Tag;
+                $tag_table->name = strtolower($tag);
+                $tag_table->slug = Str::of($tag)->slug('-');
+
+                $tag_table->save();
+            }
+          }
+        return redirect()->route('tag.index');
+
     }
 
     /**
@@ -57,7 +82,8 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
-        //
+        $tags = Tag::all();
+        return view('tag.edit', compact('tags', 'tag'));
     }
 
     /**
@@ -69,7 +95,16 @@ class TagController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
-        //
+        $this->validate($request, array(
+            'name' => 'required|unique:tags'
+        ));
+
+        $tag->name = strtolower($request->name);
+        $tag->slug = Str::of($request->name)->slug('-'); 
+
+        $tag->save();
+
+        return redirect()->route('tag.index');
     }
 
     /**
@@ -80,6 +115,7 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+        return redirect()->route('tag.index');
     }
 }

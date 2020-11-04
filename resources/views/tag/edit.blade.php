@@ -14,21 +14,26 @@ Category
 <link rel="stylesheet" href="{{ asset('back/plugins/jquery-datatable/dataTables.bootstrap4.min.css') }}">
 @endsection
 
+@section('top_btn')
+<a href="{{ route('tag.index') }}" class="btn btn-primary float-right" style="line-height: 22px; margin-right: 5px;">Add another tags</a>
+@endsection
+
 @section('content')
 <div class="container-fluid">
     <div class="row clearfix">
         <div class="col-lg-4">
-            <form id="form" action="{{ route('tag.store') }}" method="POST">
+            <form id="form" action="{{ route('tag.update', $tag->id) }}" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="card">
                     <div class="body">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <label for="name">Input all tags separated by (,)</label>
-                                    <div class="border">
-                                        <input data-role="tagsinput" id="name" rows="4" class="form-control no-resize"
-                                            placeholder="Please type what you want..." name="name" value="{{ old('name') }}">
+                                    <label for="name">Update tag</label>
+                                    <div>
+                                        <input id="name" rows="4" class="form-control no-resize"
+                                            placeholder="Please type what you want..." name="name" value="{{ $tag->name }}">
                                         </div>
                                         @if($errors->has('name'))
                                         <span style="color: red;">{{ $errors->first('name') }}</span>
@@ -36,7 +41,7 @@ Category
                                 </div>
                             </div>
                             <div class="mt-3 text-right">
-                                <button class="btn btn-primary" type="submit">Save Tags</button>
+                                <button class="btn btn-info" type="submit">Update Tags</button>
                             </div>
                         </div>
                     </div>

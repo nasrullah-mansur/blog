@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class SupperAdmin
+class Administrator
 {
     /**
      * Handle an incoming request.
@@ -16,13 +16,12 @@ class SupperAdmin
     public function handle($request, Closure $next)
     {
 
-
         $userRoles = auth()->user()->role;
 
-        if($userRoles == 1){
+        if($userRoles == 2){
             return $next($request);
         }
         
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard'); 
     }
 }

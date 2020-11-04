@@ -20,7 +20,7 @@ Auth::routes(['register' => false]);
 
 
 Route::resource('/post', 'PostController');
-Route::resource('/tag', 'TagController');
+
 
 
 // extra route;
@@ -51,27 +51,27 @@ Route::get('/banner_sidebar', function() {
 // Backend Routes;
 Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::resource('/category', 'CategoryController');
-    Route::resource('/slider', 'SliderController');
-    Route::resource('/social', 'SocialController');
     Route::get('/', 'HomeController@index')->name('dashboard');
     Route::resource('/profile', 'ProfileController');
-
     Route::get('change-password', 'passwordController@index');
     Route::post('change-password', 'passwordController@store')->name('change.password');
+    Route::resource('/tag', 'TagController');
 
-    Route::resource('/setting', 'SettingController');
-});
+    // Administrator;
+    Route::middleware(['administrator'])->group(function () {
+        Route::resource('/slider', 'SliderController');
+        Route::resource('/social', 'SocialController');
+        Route::resource('/setting', 'SettingController');  
+        
+    });
 
-
-// Supper admin;
-Route::middleware(['auth','super_admin'])->prefix('admin')->group(function () {
+    // Supper admin;
+    // Route::middleware(['super_admin'])->group(function () {
+    //     Route::resource('/user', 'UserController');
+    // });
+    
     Route::resource('/user', 'UserController');
 });
-
-
-
-
-
 
 
 

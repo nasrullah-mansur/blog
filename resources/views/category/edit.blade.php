@@ -31,7 +31,7 @@ Category
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <label for="name">Category name (max 55 characters)</label>
+                                        <label for="name">Update name (max 55 characters)</label>
                                         <input id="name" rows="4" class="form-control no-resize"
                                             placeholder="Please type what you want..." name="name" value="{{ $category->name }}">
                                         <small><span id="title-count">0</span> of 55</small>
@@ -58,8 +58,8 @@ Category
                                         @endif
                                     </select>
                                 </div>
-                                <div class="mt-3">
-                                    <button class="btn btn-primary" type="submit">Save</button>
+                                <div class="mt-3 text-right">
+                                    <button class="btn btn-info" type="submit">Update Category</button>
                                 </div>
                             </div>
                         </div>

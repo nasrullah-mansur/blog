@@ -178,7 +178,7 @@ if($user_info->first()->role == 1) {
                     <li class="{{ Route::is('post.index') ? 'active' : '' }}"><a href="{{ route('post.index') }}">Post List</a></li>
                     <li class="{{ Route::is('post.create') ? 'active' : '' }}"><a href="{{ route('post.create') }}">Create Post</a></li>
                     <li class="{{ Route::is('category.index', 'category.edit') ? 'active' : '' }}"><a href="{{ route('category.index') }}">Category</a></li>
-                    <li><a href="{{ route('tag.index') }}">Tag</a></li>
+                    <li class="{{ Route::is('tag.index', 'tag.edit') ? 'active' : '' }}"><a href="{{ route('tag.index') }}">Tag</a></li>
                 </ul>
             </li>
             @if($user_info->first()->role == 1)
