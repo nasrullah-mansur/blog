@@ -19,7 +19,7 @@ Auth::routes(['register' => false]);
 
 
 
-Route::resource('/post', 'PostController');
+
 
 
 
@@ -56,6 +56,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('change-password', 'passwordController@index');
     Route::post('change-password', 'passwordController@store')->name('change.password');
     Route::resource('/tag', 'TagController');
+    Route::resource('/post', 'PostController');
 
     // Administrator;
     Route::middleware(['administrator'])->group(function () {
@@ -65,12 +66,12 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         
     });
 
-    // Supper admin;
-    // Route::middleware(['super_admin'])->group(function () {
-    //     Route::resource('/user', 'UserController');
-    // });
+
+
+    Route::middleware(['super_admin'])->group(function () {
+        Route::resource('/user', 'UserController');
+    });
     
-    Route::resource('/user', 'UserController');
 });
 
 

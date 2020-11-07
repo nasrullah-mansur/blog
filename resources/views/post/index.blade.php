@@ -55,15 +55,16 @@ Blog List
                                 </tr>
                             </tfoot>
                             <tbody>
+                            @foreach($posts as $post)
                                 <tr>
                                     <td>1</td>
                                     <td>
                                         <div style="width: 200px;">
-                                            <a href="#">The Most Advance Business Plan</a>
+                                            <a href="#">{{ $post->title }}</a>
                                         </div>
                                     </td>
                                     <td>
-                                        <img src="{{ url('front/images/blog.jpg') }}" alt="Blog image" style="max-width: 200px; ">
+                                        <img src="{{ url('front/images/post/', $post->image) }}" alt="Blog image" style="max-width: 200px; ">
                                     </td>
                                     <td>
                                         <div style="width: 150px;">
@@ -82,12 +83,12 @@ Blog List
                                     </td>
                                     <td>
                                         <div style="width: 120px; text-align: center;">
-                                            <span>1 day ago</span>
+                                            <span>{{ $post->created_at->diffForHumans() }}</span>
                                         </div>
                                     </td>
                                     <td>
                                         <div style="width: 120px; text-align: center;">
-                                            <span>1 day ago</span>
+                                            <span>{{ $post->updated_at->diffForHumans() }}</span>
                                         </div>
                                     </td>
                                     <td>
@@ -98,63 +99,17 @@ Blog List
                                     <td>
                                         <div class="action-btn d-flex" style="width: 150px;">
                                             <a href="javascript:void(0);" class="waves-effect waves-float btn-sm waves-light-blue text-black mr-2"><i class="zmdi zmdi-eye" style="line-height: 1.8;"></i></a>
-                                            <a href="javascript:void(0);" class="waves-effect waves-float btn-sm waves-green text-black mr-2"><i class="zmdi zmdi-edit" style="line-height: 1.8;"></i></a>
-                                            <form class="d-inline">
+                                            <a href="{{ route('post.edit', $post->id) }}" class="waves-effect waves-float btn-sm waves-green text-black mr-2"><i class="zmdi zmdi-edit" style="line-height: 1.8;"></i></a>
+                                            <form class="d-inline" action="{{ route('post.destroy', $post->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
                                                 <button class="waves-effect waves-float btn-sm waves-red text-black border-0"><i class="zmdi zmdi-delete" style="line-height: 1.8;"></i></button>
                                             </form>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>
-                                        <div style="width: 200px;">
-                                            <a href="#">The Most Advance Business Plan</a>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <img src="{{ url('front/images/blog.jpg') }}" alt="Blog image" style="max-width: 200px; ">
-                                    </td>
-                                    <td>
-                                        <div style="width: 150px;">
-                                            <a href="#">web design</a>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div style="width: 100px; text-align: center;">
-                                            <span>(32)</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                         <div style="width: 100px; text-align: center;">
-                                         <span class="badge badge-info">unpublished</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div style="width: 120px; text-align: center;">
-                                            <span>1 day ago</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div style="width: 120px; text-align: center;">
-                                            <span>1 day ago</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div style="width:150px;">
-                                            <a href="#">System Architect</a>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="action-btn d-flex" style="width: 150px;">
-                                            <a href="javascript:void(0);" class="waves-effect waves-float btn-sm waves-light-blue text-black mr-2"><i class="zmdi zmdi-eye" style="line-height: 1.8;"></i></a>
-                                            <a href="javascript:void(0);" class="waves-effect waves-float btn-sm waves-green text-black mr-2"><i class="zmdi zmdi-edit" style="line-height: 1.8;"></i></a>
-                                            <form class="d-inline">
-                                                <button class="waves-effect waves-float btn-sm waves-red text-black border-0"><i class="zmdi zmdi-delete" style="line-height: 1.8;"></i></button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @endforeach
+                                
                             </tbody>
                         </table>
                     </div>

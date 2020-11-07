@@ -145,7 +145,7 @@ if($user_info->first()->role == 1) {
                 <div class="user-info">
                     <a class="image" href="profile.html"><img src="{{ $user_info->first()->profile->image == '' ? url('back/images/profile_av.jpg') : $user_info->first()->profile->image}}" alt="User"></a>
                     <div class="detail">
-                        <h4>{{ $user_info->first()->profile->name == '' ? 'Your Name' : $user_info->first()->profile->image }}</h4>
+                        <h4>{{ $user_info->first()->profile->name == '' ? 'Your Name' : $user_info->first()->profile->name }}</h4>
                         <small>{{ $user_role }}</small>                        
                     </div>
                 </div>
@@ -287,5 +287,6 @@ if($user_info->first()->role == 1) {
 <!-- <script src="{{asset('back/js/pages/blog/blog.js')}}"></script> -->
 
 @yield('custom_js')
+
 </body>
 </html>

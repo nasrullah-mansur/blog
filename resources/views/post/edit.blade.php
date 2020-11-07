@@ -27,13 +27,14 @@ Create a new blog
 
 @section('content')
     <div class="container-fluid">
-        <form action="{{ route('post.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('post.update', $post->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
             <div class="row">
                 <div class="rounded col-lg-8 py-lg-4" style="background-color: #fff;">
                     <div class="form-group">
                         <label for="title">Title</label>
-                        <input type="text" class="form-control" id="title" placeholder="Title here" name="title" value="{{ old('title') }}">
+                        <input type="text" class="form-control" id="title" placeholder="Title here" name="title" value="{{ old('title') ? old('title') : $post->title  }}">
                         @if($errors->has('title'))
                         <span style="color: red;">{{ $errors->first('title') }}</span>
                         @endif
@@ -41,7 +42,7 @@ Create a new blog
 
                     <div class="form-group">
                         <label for="slug">Title</label>
-                        <input type="text" class="form-control" id="slug" placeholder="Title here" name="slug" value="{{ old('slug') }}">
+                        <input type="text" class="form-control" id="slug" placeholder="Title here" name="slug" value="{{ old('slug') ? old('slug') : $post->slug  }}">
                         @if($errors->has('slug'))
                         <span style="color: red;">{{ $errors->first('slug') }}</span>
                         @endif
@@ -49,7 +50,7 @@ Create a new blog
 
                     <div class="form-group">
                         <label for="summery">Summery</label>
-                        <textarea class="form-control summernote" id="summery" rows="1"  name="summery">{{ old('summery') }}</textarea>
+                        <textarea class="form-control summernote" id="summery" rows="1"  name="summery">{{ old('summery') ? old('summery') : $post->summery  }}</textarea>
                         @if($errors->has('summery'))
                         <span style="color: red;">{{ $errors->first('summery') }}</span>
                         @endif
@@ -57,7 +58,7 @@ Create a new blog
 
                     <div class="form-group">
                         <label for="content">Content</label>
-                        <textarea class="form-control summernote" id="content" rows="1" name="content">{{ old('content') }}</textarea>
+                        <textarea class="form-control summernote" id="content" rows="1" name="content">{{ old('content') ? old('content') : $post->content  }}</textarea>
                         @if($errors->has('content'))
                         <span style="color: red;">{{ $errors->first('content') }}</span>
                         @endif
@@ -70,7 +71,7 @@ Create a new blog
                         <select class="form-control show-tick ms select2" data-placeholder="Select" name="category_id">
                             <option></option>
                             @foreach($categories as $category)
-                            <option {{ old('category_id') == $category->id ? 'selected' : '' }} value="{{ $category->id }}">{{ $category->name }}</option>
+                            <option {{ old('category_id') == $category->id || $post->category_id == $category->id ? 'selected' : '' }} value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
                         </select>
                         @if($errors->has('category_id'))
@@ -82,7 +83,7 @@ Create a new blog
                         <label>Tag</label>
                         <select class="form-control show-tick ms select2" multiple data-placeholder="Select" name="tag[]">
                             @foreach($tags as $tag)
-                            <option @if(old('tag') != '') @if(in_array($tag->id, old('tag'))) selected @endif  @endif value="{{ $tag->id }}">{{ $tag->name }}</option>
+                            <option @if(old('tag') != '') @if(in_array($tag->id, old('tag'))) selected @endif @elseif(in_array($tag->id, $tags_id)) selected  @endif value="{{ $tag->id }}">{{ $tag->name }}</option>
                             @endforeach
                         </select>
                         @if($errors->has('tag'))
@@ -92,7 +93,7 @@ Create a new blog
 
                     <div class="form-group">
                         <label>Featured Image</label>
-                        <input name="image" type="file" class="dropify" name="image">
+                        <input data-default-file="{{ url('front/images/post', $post->image) }}" name="image" type="file" class="dropify" name="image" value="$post->image">
                         @if($errors->has('image'))
                         <span style="color: red;">{{ $errors->first('image') }}</span>
                         @endif
@@ -100,7 +101,7 @@ Create a new blog
 
                     <div class="form-group">
                         <label for="meta_des">Meta Description</label>
-                        <textarea class="form-control" id="meta_des" rows="4" placeholder="Meta Description" name="meta_des">{{ old('meta_des') }}</textarea>
+                        <textarea class="form-control" id="meta_des" rows="4" placeholder="Meta Description" name="meta_des">{{ old('meta_des') ? old('meta_des') : $post->meta_des  }}</textarea>
                         @if($errors->has('meta_des'))
                         <span style="color: red;">{{ $errors->first('meta_des') }}</span>
                         @endif
@@ -108,7 +109,7 @@ Create a new blog
 
                     <div class="form-group">
                         <label for="meta_key">Meta Keyword</label>
-                        <textarea class="form-control" id="meta_key" rows="4" placeholder="Meta Keyword" name="meta_key">{{ old('meta_key') }}</textarea>
+                        <textarea class="form-control" id="meta_key" rows="4" placeholder="Meta Keyword" name="meta_key">{{ old('meta_key') ? old('meta_key') : $post->meta_key  }}</textarea>
                         @if($errors->has('meta_key'))
                         <span style="color: red;">{{ $errors->first('meta_key') }}</span>
                         @endif

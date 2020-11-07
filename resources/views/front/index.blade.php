@@ -23,6 +23,7 @@ Blog HTML5 Template
                         </div>
                     </div>
                 </div>
+                
                 <div class="single-slider slide-height d-flex align-items-end" data-overlay="dark-gradient"
                     style="background-image: url({{ url('front/img/hero/part2/slide3.jpg') }})">
                     <div class="container">
