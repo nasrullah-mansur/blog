@@ -25,9 +25,10 @@ Our Profile
                     <ul class="header-dropdown" style="list-style: none; position: absolute; right: 15px; top: 15px;">
                         <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="zmdi zmdi-edit"></i> </a>
                             <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="{{ route('user.show', $user->id) }}">Show</a></li>
                                 <li><a href="{{ route('user.edit', $user->id) }}">Edit</a></li>
-                                <li><a href="javascript:void(0);" onclick="event.preventDefault(); document.getElementById('delete-form').submit();">Delete</a></li>
-                                <form id="delete-form" action="{{ route('user.destroy', $user->id) }}" method="POST" class="d-none">
+                                <li><a class="delete-btn" href="javascript:void(0);">Delete</a></li>
+                                <form class="delete-form" action="{{ route('user.destroy', $user->id) }}" method="POST" class="d-none">
                                     @csrf
                                     @method('DELETE')
                                 </form>
@@ -95,6 +96,13 @@ Our Profile
 </div>
 @endsection
 
-@section('js_plugins')
-
+@section('custom_js')
+<script>
+    let deleteBtn = document.getElementsByClassName('delete-btn');
+    for(let item of deleteBtn) {
+        item.addEventListener('click', function() {
+            this.parentElement.nextElementSibling.submit();
+        })
+    }
+</script>
 @endsection

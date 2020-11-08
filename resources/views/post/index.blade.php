@@ -5,7 +5,7 @@ Blog List
 @endsection
 
 @section('page_title')
-Blog List
+All Posts
 @endsection
 
 @section('css_plugins')
@@ -14,7 +14,7 @@ Blog List
 @endsection
 
 @section('top_btn')
-<a href="{{ route('post.create') }}" class="btn btn-primary float-right" style="line-height: 22px; margin-right: 5px;">Add Blog</a>
+<a href="{{ route('post.create') }}" class="btn btn-primary float-right" style="line-height: 22px; margin-right: 5px;">Add New Post</a>
 @endsection
 
 @section('content')
@@ -57,18 +57,18 @@ Blog List
                             <tbody>
                             @foreach($posts as $post)
                                 <tr>
-                                    <td>1</td>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>
                                         <div style="width: 200px;">
                                             <a href="#">{{ $post->title }}</a>
                                         </div>
                                     </td>
                                     <td>
-                                        <img src="{{ url('front/images/post/', $post->image) }}" alt="Blog image" style="max-width: 200px; ">
+                                        <img src="{{ url('front/images/post/', $post->image) }}" alt="Blog image" style="width: 200px; max-width: 200px; height: 100px; object-fit: cover;">
                                     </td>
                                     <td>
                                         <div style="width: 150px;">
-                                            <a href="#">web design</a>
+                                            <a href="#">{{ $post->category->name }}</a>
                                         </div>
                                     </td>
                                     <td>
@@ -78,27 +78,27 @@ Blog List
                                     </td>
                                     <td>
                                          <div style="width: 100px; text-align: center;">
-                                            <span class="badge badge-success">Published</span>
+                                            <span class="badge {{ $post->status == 1 ? 'badge-success' : 'badge-info'}}">{{ $post->status == 1 ? 'Published' : 'Unpublished'}}</span>
                                         </div>
                                     </td>
                                     <td>
                                         <div style="width: 120px; text-align: center;">
-                                            <span>{{ $post->created_at->diffForHumans() }}</span>
+                                            <span>{{ $post->created_at->format('d/m/Y') }}</span>
                                         </div>
                                     </td>
                                     <td>
                                         <div style="width: 120px; text-align: center;">
-                                            <span>{{ $post->updated_at->diffForHumans() }}</span>
+                                            <span>{{ $post->updated_at->format('d/m/Y') }}</span>
                                         </div>
                                     </td>
                                     <td>
                                         <div style="width:150px;">
-                                            <a href="#">System Architect</a>
+                                            <span>{{ $post->user->profile->name }}</span>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="action-btn d-flex" style="width: 150px;">
-                                            <a href="javascript:void(0);" class="waves-effect waves-float btn-sm waves-light-blue text-black mr-2"><i class="zmdi zmdi-eye" style="line-height: 1.8;"></i></a>
+                                            <a href="{{ route('post.show', $post->id) }}" class="waves-effect waves-float btn-sm waves-light-blue text-black mr-2"><i class="zmdi zmdi-eye" style="line-height: 1.8;"></i></a>
                                             <a href="{{ route('post.edit', $post->id) }}" class="waves-effect waves-float btn-sm waves-green text-black mr-2"><i class="zmdi zmdi-edit" style="line-height: 1.8;"></i></a>
                                             <form class="d-inline" action="{{ route('post.destroy', $post->id) }}" method="POST">
                                                 @csrf

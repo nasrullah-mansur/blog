@@ -54,26 +54,8 @@ Banner Slider Create
             </div>
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="header">
-                        <h2>Item Status</h2>
-                    </div>
-                    <div class="body">
-                        <div class="radio">
-                            <input type="radio" name="status" id="radio1" value="1">
-                            <label for="radio1">Active</label>
-                        
-                            <input type="radio" name="status" id="radio2" value="2">
-                            <label for="radio2">Inactive</label>
-                        </div>
-                    </div>
-                    @if($errors->has('status'))
-                    <span style="color: red;">{{ $errors->first('status') }}</span>
-                    @endif
-                </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="card">
-                    <button class="btn btn-primary" type="submit">Save Slider</button>
+                    <button name="status" value="1" class="btn btn-primary" type="submit">Publish</button>
+                    <button name="status" value="2" class="btn btn-info" type="submit">Save Draft</button>
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 @extends('layouts.back')
 
 @section('title')
-Blog Create
+Create a New Post
 @endsection
 
 @section('page_title')

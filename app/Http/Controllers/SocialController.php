@@ -98,7 +98,7 @@ class SocialController extends Controller
                 $request->validate([
                     'name'=>'required',
                     'class'=>'required|unique:socials',
-                    'link'=>'url|required|unique:socials',
+                    'link'=>'url|required',
                 ]);
             }
         }elseif($social->class == $request->class){
@@ -115,6 +115,12 @@ class SocialController extends Controller
                     'link'=>'url|required|unique:socials',
                 ]);
             }
+        }elseif($social->link == $request->link){
+            $request->validate([
+                'name'=>'required|unique:socials',
+                'class'=>'required|unique:socials',
+                'link'=>'url|required',
+            ]);
         }else{
             $request->validate([
                 'name'=>'required|unique:socials',

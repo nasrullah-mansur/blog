@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Profile;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 
 class ProfileController extends Controller
 {
@@ -16,9 +17,7 @@ class ProfileController extends Controller
     public function index()
     {
 
-        $id = auth()->user()->id;
-        $profile = Profile::with('user')->where('user_id', $id)->get();
-        $profile = $profile[0];
+        $profile = Profile::with('user')->where('user_id', auth()->user()->id)->first();
         return view('profile.edit', compact('profile'));
 
     }
@@ -97,7 +96,12 @@ class ProfileController extends Controller
 
         $profile->update();
 
-        return redirect()->route('profile.index');
+        $user_role = auth()->user()->role;
+        if($user_role == 1) {
+            return redirect()->route('user.index');
+        } else {
+            return redirect()->route('profile.index');
+        }
         
     }
 

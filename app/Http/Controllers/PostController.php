@@ -18,7 +18,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::with('category', 'tag', 'user')->get();
         return view('post.index', compact('posts'));
     }
 
@@ -74,8 +74,8 @@ class PostController extends Controller
         
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $extension = strtolower($file->getClientOriginalName());
-            $fileName = time() . '-' . $extension;
+            $extension = $file->getClientOriginalExtension();
+            $fileName = time() . '-' . 'post-image' . '.' . $extension;
             $file->move('front/images/post', $fileName);
             $posts->image = $fileName;
         }
@@ -156,6 +156,8 @@ class PostController extends Controller
         $post->meta_key = $request->meta_key;
         $post->slug = Str::of($request->slug)->slug('-');
         $post->status = $request->status;
+
+        $post->tag_id = implode(",",$request->tag); 
                
         $post->user_id = auth()->user()->id;
 
@@ -165,7 +167,7 @@ class PostController extends Controller
                 File::delete($image_path);
                 $file = $request->file('image');
                 $extension = strtolower($file->getClientOriginalName());
-                $fileName = time() . '-' . $extension;
+                $fileName = time() . '-' . 'post-image' . '.' . $extension;
                 $file->move('front/images/post', $fileName);
                 $post->image = $fileName;
             } 
@@ -196,6 +198,11 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $image_path = public_path() . '/front/images/post/' . $post->image;
+        if (File::exists($image_path)) {
+            File::delete($image_path);
+        } 
+        
         $post->tag()->detach();
         $post->delete();
         return redirect()->route('post.index');

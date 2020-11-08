@@ -75,7 +75,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return redirect()->route('user.index');
+        $profile = Profile::with('user')->where('user_id', $id)->first();
+        return view('user.show', compact('profile'));
     }
 
     /**
@@ -148,7 +149,6 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-
         $user->delete();
         return redirect()->route('user.index');
 

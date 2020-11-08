@@ -5,7 +5,7 @@ Blog Create
 @endsection
 
 @section('page_title')
-Create a new blog
+Edit and Update Post
 @endsection
 
 @section('css_plugins')

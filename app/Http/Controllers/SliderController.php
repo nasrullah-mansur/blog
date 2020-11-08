@@ -51,8 +51,8 @@ class SliderController extends Controller
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $extension = strtolower($file->getClientOriginalName());
-            $fileName = time() . '-' . $extension;
+            $extension = strtolower($file->getClientOriginalExtension());
+            $fileName = time() . '-' . 'slider-image' . '.' . $extension;
             $file->move('front/images/slider', $fileName);
             $slider->image = $fileName;
         }
@@ -98,7 +98,7 @@ class SliderController extends Controller
         $this->validate($request, array(
             'text' => 'required|min:5|max:255',
             'status' => 'required',
-            'image' => 'required|image|mimes:jpeg,jpg,gif,svg,png|max:2048',
+            'image' => 'nullable',
         ));
 
         $slider->text = $request->text;
@@ -110,8 +110,8 @@ class SliderController extends Controller
             if (File::exists($image_path)) {
                 File::delete($image_path);
                 $file = $request->file('image');
-                $extension = strtolower($file->getClientOriginalName());
-                $fileName = time() . '-' . $extension;
+                $extension = strtolower($file->getClientOriginalExtension());
+                $fileName = time() . '-' . 'slider-image' . '.' . $extension;
                 $file->move('front/images/slider', $fileName);
                 $slider->image = $fileName;
             } 
@@ -133,9 +133,9 @@ class SliderController extends Controller
     public function destroy(Slider $slider)
     {
         $image_path = public_path() . '/front/images/slider/' . $slider->image;
-            if (File::exists($image_path)) {
-                File::delete($image_path);
-            }
+        if (File::exists($image_path)) {
+            File::delete($image_path);
+        }
 
         $slider->delete();
 

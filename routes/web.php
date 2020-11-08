@@ -17,36 +17,14 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes(['register' => false]);
 
-
-
-
-
-
-
-// extra route;
-// Route::get('/edit_test_profile', function() {
-//     return view('profile.edit');
-// });
-
-
-Route::get('/settings', function() {
-    return view('setting.settings');
-});
-
-
 Route::get('/new_reset', function() {
     return view('auth.passwords.new_reset');
 });
 
 
-Route::get('/banner_slider', function() {
-    return view('slider.create_banner');
+Route::get('/test',function () {
+    return view('front.view');
 });
-
-Route::get('/banner_sidebar', function() {
-    return view('slider.sidebar');
-});
-
 
 // Backend Routes;
 Route::middleware(['auth'])->prefix('admin')->group(function () {
@@ -66,9 +44,11 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         
     });
 
-
-
+    // Super admin;
     Route::middleware(['super_admin'])->group(function () {
+        Route::resource('/slider', 'SliderController');
+        Route::resource('/social', 'SocialController');
+        Route::resource('/setting', 'SettingController');  
         Route::resource('/user', 'UserController');
     });
     

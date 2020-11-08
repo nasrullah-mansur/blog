@@ -59,11 +59,10 @@ Create a new user
                     </div>
                     <div class="form-group mb-3">
                         <div class="radio">
-                            <input type="radio" id="blogger" name="role" value="2" checked>
-                            <label for="blogger">Blogger</label>
-
-                            <input type="radio" id="administrator" name="role" value="3">
+                            <input type="radio" id="administrator" name="role" value="2">
                             <label for="administrator">Administrator</label>
+                            <input type="radio" id="blogger" name="role" value="3" checked>
+                            <label for="blogger">Blogger</label>
                         </div>
                     </div>
                     <button type="submit"

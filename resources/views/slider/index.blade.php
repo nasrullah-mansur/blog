@@ -51,7 +51,7 @@ Banner Slider
                             <tbody>
                                 @foreach($items as $item)
                                 <tr>
-                                    <td>1</td>
+                                    <td>{{ $loop->iteration }}</td>
                                     
                                     <td>
                                         <div style="min-width: 200px;">
@@ -71,12 +71,12 @@ Banner Slider
 
                                     <td>
                                         <div style="width: 120px; text-align: center;">
-                                            <span> {{ $item->created_at->diffForHumans() }} </span>
+                                            <span> {{ $item->created_at->format('d/m/Y') }} </span>
                                         </div>
                                     </td>
                                     <td>
                                         <div style="width: 120px; text-align: center;">
-                                            <span> {{ $item->updated_at->diffForHumans() }} </span>
+                                            <span> {{ $item->updated_at->format('d/m/Y') }} </span>
                                         </div>
                                     </td>
                                    

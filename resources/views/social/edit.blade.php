@@ -55,6 +55,7 @@ Category
                                 
                                 <div class="mt-3">
                                     <button class="btn btn-info" type="submit">Edit Social Media</button>
+                                    <a class="btn btn-success" href="{{ url()->previous() }}">Back</a>
                                 </div>
                             </div>
                         </div>

@@ -144,8 +144,18 @@ if($user_info->first()->role == 1) {
             <li>
                 <div class="user-info">
                     <a class="image" href="profile.html"><img src="{{ $user_info->first()->profile->image == '' ? url('back/images/profile_av.jpg') : $user_info->first()->profile->image}}" alt="User"></a>
-                    <div class="detail">
-                        <h4>{{ $user_info->first()->profile->name == '' ? 'Your Name' : $user_info->first()->profile->name }}</h4>
+                    <div class="detail text-left">
+                        <h4>
+                            @if($user_info->first()->profile->name == '')
+                            Your Name
+
+                            @elseif((strlen($user_info->first()->profile->name) > 10))
+                            {{ substr($user_info->first()->profile->name, 0, 10) }}...
+
+                            @else
+                            {{ $user_info->first()->profile->name }}
+                            @endif
+                        </h4>
                         <small>{{ $user_role }}</small>                        
                     </div>
                 </div>
