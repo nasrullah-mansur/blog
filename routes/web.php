@@ -41,7 +41,6 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::resource('/slider', 'SliderController');
         Route::resource('/social', 'SocialController');
         Route::resource('/setting', 'SettingController');  
-        
     });
 
     // Super admin;
@@ -59,6 +58,10 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
 // Front Routes;
 Route::get('/', 'FrontController@index')->name('frontIndex');
-Route::get('/blog', 'FrontController@blog')->name('frontBlog');
-Route::get('/single-blog', 'FrontController@show')->name('frontSingleBlog');
+Route::get('/blog/category/{slug}', 'FrontController@blogcategory')->name('blog.category');
+
+
+Route::get('blog/{slug}', 'FrontController@singleblog')->name('single.blog');
+
+
 Route::get('/contact', 'FrontController@contact')->name('frontContact');

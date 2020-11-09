@@ -6,6 +6,7 @@ use App\User;
 use App\Profile;
 use Illuminate\Http\Request;
 use App\Mail\RegistrationMail;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
@@ -60,10 +61,7 @@ class UserController extends Controller
         ]);
 
         // Mail::to($request->email)->send(new RegistrationMail($request));
-
-         
-
-        
+        Toastr::success('Successfully Added a New User', '', ["positionClass" => "toast-top-right"]);
         return redirect()->route('user.index');
     }
 
@@ -136,7 +134,7 @@ class UserController extends Controller
 
         // Mail::to($request->email)->send(new RegistrationMail($request));
 
-
+        Toastr::success('Successfully Updated', '', ["positionClass" => "toast-top-right"]);
         return redirect()->route('user.index');
 
     }
@@ -150,6 +148,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
+        Toastr::success('Successfully Delete', '', ["positionClass" => "toast-top-right"]);
         return redirect()->route('user.index');
 
     }

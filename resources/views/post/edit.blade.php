@@ -116,6 +116,14 @@ Edit and Update Post
                     </div>
 
                     <div class="form-group">
+                        <label for="alt">Image Alt</label>
+                        <input type="text" class="form-control" id="alt" placeholder="Image Alt" name="alt" value="{{ old('alt') ? old('alt') : $post->slug  }}">
+                        @if($errors->has('alt'))
+                        <span style="color: red;">{{ $errors->first('alt') }}</span>
+                        @endif
+                    </div>
+
+                    <div class="form-group">
                         <button name="status" value="1" type="submit" class="btn btn-primary">Publish</button>
                         <button name="status" value="2" type="submit" class="btn btn-info">Save Draft</button>
                     </div>

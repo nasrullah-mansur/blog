@@ -72,7 +72,6 @@
                                             <nav id="mobile-menu">
                                                 <ul>
                                                     <li class="{{ Route::is('frontIndex') ? 'active' : '' }}"><a href="{{ route('frontIndex') }}">Home</a></li>
-                                                    <li class="{{ Route::is('frontBlog') || Route::is('frontSingleBlog') ? 'active' : '' }}"><a href="{{ route('frontBlog') }}">Blog</a></li>
                                                     <li><a href="{{ route('frontContact') }}">contact</a></li>
                                                 </ul>
                                             </nav>
@@ -118,12 +117,9 @@
                         <div class="widget widget-border mb-40">
                             <h3 class="widget-title">Categories</h3>
                             <ul>
-                                <li><a href="#">Business <span>02</span></a></li>
-                                <li><a href="#">Politic <span>05</span></a></li>
-                                <li><a href="#">Fashion <span>01</span></a></li>
-                                <li><a href="#">Corporate <span>03</span></a></li>
-                                <li><a href="#">Football <span>07</span></a></li>
-                                <li><a href="#">Magazine <span>06</span></a></li>
+                                @foreach($categories as $category)
+                                <li><a href="{{ route('blog.category', $category->slug) }}">{{ $category->name}} <span>{{ count($category->childs) }}</span></a></li>
+                                @endforeach
                             </ul>
                         </div>
                         <div class="widget widget-border mb-40">
@@ -257,19 +253,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="widget widget-border mb-40">
-                            <h3 class="widget-title">Popular Tags</h3>
-                            <div class="tagcloud">
-                                <a href="#">Fashion</a>
-                                <a href="#">Politic</a>
-                                <a href="#">Modern</a>
-                                <a href="#">Tips</a>
-                                <a href="#">Nav</a>
-                                <a href="#">Jason</a>
-                                <a href="#">Roster</a>
-                                <a href="#">Boat</a>
-                            </div>
-                        </div>
+                        @yield('tags')
                     </div>
                 </div>
             </div>

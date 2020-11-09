@@ -25,6 +25,7 @@ if($user_info->first()->role == 1) {
 <link rel="stylesheet" href="{{asset('back/plugins/bootstrap/css/bootstrap.min.css')}}">
 <!-- Favicon-->
 @yield('css_plugins')
+<link rel="stylesheet" href="{{asset('back/plugins/toastr/toastr.min.css')}}">
 <!-- Custom Css -->
 <link rel="stylesheet" href="{{asset('back/css/style.min.css')}}">
 @yield('custom_css')
@@ -287,9 +288,13 @@ if($user_info->first()->role == 1) {
         @yield('content')
     </div>
 </section>
+
+
+
 <!-- Jquery Core Js --> 
 <script src="{{asset('back/bundles/libscripts.bundle.js')}}"></script> <!-- Lib Scripts Plugin Js --> 
 <script src="{{asset('back/bundles/vendorscripts.bundle.js')}}"></script> <!-- Lib Scripts Plugin Js --> 
+<script src="{{asset('back/plugins/toastr/toastr.min.js')}}"></script>
 
 @yield('js_plugins')
 
@@ -298,5 +303,6 @@ if($user_info->first()->role == 1) {
 
 @yield('custom_js')
 
+{!! Toastr::message() !!}
 </body>
 </html>

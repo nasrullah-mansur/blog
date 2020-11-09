@@ -99,7 +99,7 @@ Category
                                 @foreach($cats as $cat)
                                 @if($cat->childs->count()>0)
                                 <tr>
-                                    <td>{!! $loop->iteration !!}</td>
+                                    <td>{!! $count++ !!}</td>
                                     <td>{!! $cat->name !!}</td>
                                     <td>{!! $cat->slug !!}</td>
                                     <td class="d-flex">
@@ -118,7 +118,7 @@ Category
                                 </tr>
                                 @foreach($cat->childs as $subcat)
                                 <tr>
-                                    <td>{!! $loop->iteration !!}</td>
+                                    <td>{!! $count++ !!}</td>
                                     <td> - {!! $subcat->name !!}</td>
                                     <td>{!! $subcat->slug !!}</td>
                                     <td class="d-flex">

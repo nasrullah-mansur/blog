@@ -44,13 +44,14 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'summery' => 'required',
+            'summery' => 'required|max:255',
             'content' => 'required',
             'category_id' => 'required',
             'tag' => 'required',
             'image' => 'required',
-            'meta_des' => 'required',
-            'meta_key' => 'required',
+            'alt' => 'required|max:255',
+            'meta_des' => 'required|max:255',
+            'meta_key' => 'required|max:255',
             'slug' => 'required|unique:posts',
         ], [
             'category_id.required' => 'The category filed is required',
@@ -68,6 +69,7 @@ class PostController extends Controller
         $posts->meta_key = $request->meta_key;
         $posts->slug = Str::of($request->slug)->slug('-');
         $posts->status = $request->status;
+        $posts->alt = $request->alt;
         $posts->tag_id = implode(",",$request->tag); 
                
         $posts->user_id = auth()->user()->id;
@@ -130,13 +132,14 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'summery' => 'required',
+            'summery' => 'required|max:255',
             'content' => 'required',
             'category_id' => 'required',
             'tag' => 'required',
             'image' => 'nullable',
-            'meta_des' => 'required',
-            'meta_key' => 'required',
+            'alt' => 'required|max:255',
+            'meta_des' => 'required|max:255',
+            'meta_key' => 'required|max:255',
         ], [
             'category_id.required' => 'The category filed is required',
         ]);
@@ -156,6 +159,7 @@ class PostController extends Controller
         $post->meta_key = $request->meta_key;
         $post->slug = Str::of($request->slug)->slug('-');
         $post->status = $request->status;
+        $post->alt = $request->alt;
 
         $post->tag_id = implode(",",$request->tag); 
                

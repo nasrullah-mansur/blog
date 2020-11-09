@@ -32,7 +32,7 @@ Create a new blog
             <div class="row">
                 <div class="rounded col-lg-8 py-lg-4" style="background-color: #fff;">
                     <div class="form-group">
-                        <label for="title">Title</label>
+                        <label for="title">Post Title</label>
                         <input type="text" class="form-control" id="title" placeholder="Title here" name="title" value="{{ old('title') }}">
                         @if($errors->has('title'))
                         <span style="color: red;">{{ $errors->first('title') }}</span>
@@ -40,7 +40,7 @@ Create a new blog
                     </div>
 
                     <div class="form-group">
-                        <label for="slug">Title</label>
+                        <label for="slug">Post Slug</label>
                         <input type="text" class="form-control" id="slug" placeholder="Title here" name="slug" value="{{ old('slug') }}">
                         @if($errors->has('slug'))
                         <span style="color: red;">{{ $errors->first('slug') }}</span>
@@ -111,6 +111,14 @@ Create a new blog
                         <textarea class="form-control" id="meta_key" rows="4" placeholder="Meta Keyword" name="meta_key">{{ old('meta_key') }}</textarea>
                         @if($errors->has('meta_key'))
                         <span style="color: red;">{{ $errors->first('meta_key') }}</span>
+                        @endif
+                    </div>
+
+                    <div class="form-group">
+                        <label for="alt">Image Alt</label>
+                        <input type="text" class="form-control" id="alt" placeholder="Image alt" name="alt" value="{{ old('alt') }}">
+                        @if($errors->has('alt'))
+                        <span style="color: red;">{{ $errors->first('alt') }}</span>
                         @endif
                     </div>
 

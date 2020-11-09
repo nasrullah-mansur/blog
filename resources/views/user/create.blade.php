@@ -45,10 +45,10 @@ Create a new user
                         @enderror
                     </div>
                     <div class="form-group mb-3">
-                        <input type="password" class="form-control  @error('password') is-invalid @enderror"
+                        <input type="password" class="form-control"
                             placeholder="Password" name="password" required autocomplete="new-password">
                         @error('password')
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback" role="alert" @error('password') style="display: block;" @enderror>
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
