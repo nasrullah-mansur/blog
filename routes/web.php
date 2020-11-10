@@ -17,15 +17,6 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes(['register' => false]);
 
-Route::get('/new_reset', function() {
-    return view('auth.passwords.new_reset');
-});
-
-
-Route::get('/test',function () {
-    return view('front.view');
-});
-
 // Backend Routes;
 Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::resource('/category', 'CategoryController');
@@ -40,17 +31,16 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::middleware(['administrator'])->group(function () {
         Route::resource('/slider', 'SliderController');
         Route::resource('/social', 'SocialController');
-        Route::resource('/setting', 'SettingController');  
-    });
+        Route::resource('/setting', 'SettingController');
 
-    // Super admin;
-    Route::middleware(['super_admin'])->group(function () {
-        Route::resource('/slider', 'SliderController');
-        Route::resource('/social', 'SocialController');
-        Route::resource('/setting', 'SettingController');  
-        Route::resource('/user', 'UserController');
+        // Super admin;
+        Route::middleware(['super_admin'])->group(function () {
+            Route::resource('/user', 'UserController');
+            Route::get('/gallery', 'GalleryController@index')->name('gallery');
+        });
+
     });
-    
+        
 });
 
 
@@ -59,9 +49,6 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 // Front Routes;
 Route::get('/', 'FrontController@index')->name('frontIndex');
 Route::get('/blog/category/{slug}', 'FrontController@blogcategory')->name('blog.category');
-
-
+Route::get('/blog/tag/{slug}', 'FrontController@blogtag')->name('blog.tag');
 Route::get('blog/{slug}', 'FrontController@singleblog')->name('single.blog');
-
-
 Route::get('/contact', 'FrontController@contact')->name('frontContact');

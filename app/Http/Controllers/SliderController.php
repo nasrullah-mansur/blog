@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Slider;
 use Illuminate\Http\Request;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\File;
 
 class SliderController extends Controller
@@ -59,7 +60,7 @@ class SliderController extends Controller
 
         $slider->save();
 
-
+        Toastr::success('Slider Added Successful', '', ["positionClass" => "toast-top-right"]);
         return redirect()->route('slider.index');
     }
 
@@ -119,6 +120,7 @@ class SliderController extends Controller
 
         $slider->save();
 
+        Toastr::success('Slider Update Successful', '', ["positionClass" => "toast-top-right"]);
         return redirect()->route('slider.index');
 
 
@@ -138,7 +140,7 @@ class SliderController extends Controller
         }
 
         $slider->delete();
-
+        Toastr::warning('Slider Delete Successful', '', ["positionClass" => "toast-top-right"]);
         return redirect()->route('slider.index');
     }
 }

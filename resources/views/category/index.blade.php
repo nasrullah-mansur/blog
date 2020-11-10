@@ -24,7 +24,7 @@ Category
                         @csrf
                         <div class="row clearfix">
                             <div class="col-lg-12">
-                                <div class="form-group">
+                                <div class="form-group mb-0">
                                     <label for="name">Category name (max 55 characters)</label>
                                     <input id="name" rows="4" class="form-control no-resize"
                                         placeholder="Please type what you want..." name="name"
@@ -33,32 +33,6 @@ Category
                                     @if($errors->has('name'))
                                     <span style="color: red;">{{ $errors->first('name') }}</span>
                                     @endif
-                                </div>
-                            </div>
-                            <div class="col-lg-12 mt-3">
-                                <div class="form-group">
-
-                                    <label for="slug">Category slug</label>
-                                    <input id="slug" rows="4" class="form-control no-resize" name="slug"
-                                        value="{{ old('slug') }}">
-                                    @if($errors->has('slug'))
-                                    <span style="color: red;">{{ $errors->first('slug') }}</span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <label for="name-under" class="d-block">Category under</label>
-                                    <select class="form-control show-tick show-tick ms select2"
-                                        data-placeholder="Select" name="p_id">
-                                        <option value="0">--None--</option>
-                                        @if(count($cats)>0)
-                                        @foreach($cats as $cat)
-                                        <option value="{!! $cat->id !!}">{!! $cat->name !!}</option>
-                                        @endforeach
-                                        @endif
-                                    </select>
                                 </div>
                             </div>
                             <div class="col-12 mt-3 text-right">
@@ -92,62 +66,17 @@ Category
                                 </tr>
                             </tfoot>
                             <tbody>
-                                @php
-                                $count = 1;
-                                @endphp
-                                @if(count($cats)>0)
-                                @foreach($cats as $cat)
-                                @if($cat->childs->count()>0)
-                                <tr>
-                                    <td>{!! $count++ !!}</td>
-                                    <td>{!! $cat->name !!}</td>
-                                    <td>{!! $cat->slug !!}</td>
-                                    <td class="d-flex">
-                                        <a href="{{ route('category.edit', $cat->id) }}"
-                                            class="waves-effect waves-float btn-sm waves-green text-black mr-2"><i
-                                                class="zmdi zmdi-edit" style="line-height: 1.8;"></i></a>
-                                        <form class="d-inline" method="POST"
-                                            action="{{ route('category.destroy', $cat->id) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button
-                                                class="waves-effect waves-float btn-sm waves-red text-black border-0"><i
-                                                    class="zmdi zmdi-delete" style="line-height: 1.8;"></i></button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                @foreach($cat->childs as $subcat)
-                                <tr>
-                                    <td>{!! $count++ !!}</td>
-                                    <td> - {!! $subcat->name !!}</td>
-                                    <td>{!! $subcat->slug !!}</td>
-                                    <td class="d-flex">
-                                        <a href="{{ route('category.edit', $subcat->id) }}"
-                                            class="waves-effect waves-float btn-sm waves-green text-black mr-2"><i
-                                                class="zmdi zmdi-edit" style="line-height: 1.8;"></i></a>
-                                        <form class="d-inline" method="POST"
-                                            action="{{ route('category.destroy', $subcat->id) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button
-                                                class="waves-effect waves-float btn-sm waves-red text-black border-0"><i
-                                                    class="zmdi zmdi-delete" style="line-height: 1.8;"></i></button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                @endforeach
-                                @else
-
+                                @foreach($categories->reverse() as $category)
                                 <tr>
                                     <td>{!! $loop->iteration !!}</td>
-                                    <td>{!! $cat->name !!}</td>
-                                    <td>{!! $cat->slug !!}</td>
+                                    <td>{!! $category->name !!}</td>
+                                    <td>{!! $category->slug !!}</td>
                                     <td class="d-flex">
-                                        <a href="{{ route('category.edit', $cat->id) }}"
+                                        <a href="{{ route('category.edit', $category->id) }}"
                                             class="waves-effect waves-float btn-sm waves-green text-black mr-2 edit-btn"><i
                                                 class="zmdi zmdi-edit" style="line-height: 1.8;"></i></a>
                                         <form class="d-inline" method="POST"
-                                            action="{{ route('category.destroy', $cat->id) }}">
+                                            action="{{ route('category.destroy', $category->id) }}">
                                             @csrf
                                             @method('DELETE')
                                             <button
@@ -156,14 +85,7 @@ Category
                                         </form>
                                     </td>
                                 </tr>
-                                @endif
                                 @endforeach
-                                @else
-                                <tr>
-                                    <td colspan="4" style="text-align: center;">No Category Found</td>
-                                </tr>
-                                @endif
-
                             </tbody>
                         </table>
                     </div>

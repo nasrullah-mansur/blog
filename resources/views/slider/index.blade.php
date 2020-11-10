@@ -49,7 +49,7 @@ Banner Slider
                                 </tr>
                             </tfoot>
                             <tbody>
-                                @foreach($items as $item)
+                                @foreach($items->reverse() as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     

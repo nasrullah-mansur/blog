@@ -18,7 +18,7 @@ class Administrator
 
         $userRoles = auth()->user()->role;
 
-        if($userRoles == 2){
+        if($userRoles == 1 || $userRoles == 2){
             return $next($request);
         }
         

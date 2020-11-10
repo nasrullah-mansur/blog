@@ -241,7 +241,7 @@ Blog HTML5 Template :: Single Blog
                             <h3 class="widget-title">Popular Tags</h3>
                             <div class="tagcloud">
                                 @foreach($post->tag->take(10) as $tag)
-                                <a href="#">{{ $tag->name }}</a>
+                                <a href="{{ route('blog.tag', $tag->slug) }}">{{ $tag->name }}</a>
 
                                 @endforeach
                             </div>

@@ -118,7 +118,7 @@
                             <h3 class="widget-title">Categories</h3>
                             <ul>
                                 @foreach($categories as $category)
-                                <li><a href="{{ route('blog.category', $category->slug) }}">{{ $category->name}} <span>{{ count($category->childs) }}</span></a></li>
+                                <li><a href="{{ route('blog.category', $category->slug) }}">{{ $category->name}} <span>{{ count($category->posts) }}</span></a></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -340,6 +340,7 @@
     <script src="{{ asset('front/js/jquery.magnific-popup.min.js') }}"></script>
     <script src="{{ asset('front/js/plugins.js') }}"></script>
     <script src="{{ asset('front/js/main.js') }}"></script>
+    
 </body>
 
 </html>

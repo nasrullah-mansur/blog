@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -14,8 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $cats = Category::with('childs')->where('p_id', 0)->get();
-        return view('category.index', compact('cats'));
+        $categories = Category::all();
+        return view('category.index', compact('categories'));
 
     }
 
@@ -39,14 +40,12 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name'=>'required|unique:categories',
-            'slug'=>'required|unique:categories',
         ]);
 
         $categories = new Category;
 
         $categories->name = $request->name;
-        $categories->slug = $request->slug;
-        $categories->p_id = $request->p_id;
+        $categories->slug = Str::slug($categories->name, '-');
 
         $categories->save();
 
@@ -73,8 +72,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        $cats = Category::with('childs')->where('p_id', 0)->get();
-        return view('category.edit', compact('category', 'cats'));
+        $categories = Category::all();
+        return view('category.edit', compact('category', 'categories'));
     }
 
     /**
@@ -88,13 +87,11 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name'=>'required|unique:categories',
-            'slug'=>'required|unique:categories',
         ]);
 
 
         $category->name = $request->name;
-        $category->slug = $request->slug;
-        $category->p_id = $request->p_id;
+        $category->slug = Str::slug($category->name, '-');
 
         $category->save();
 
@@ -107,20 +104,10 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        
 
-        $blogCat = Category::find(intval($id));
-        if($blogCat->childs->count()>0){
-            foreach ($blogCat->childs as $subcat) {
-                $subcat->delete();
-            }
-        }
-
-        $blogCat->delete();
-
-
+        $category->delete();
         return redirect()->route('category.index');
 
     }

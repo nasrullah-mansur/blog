@@ -16,7 +16,7 @@ Blog HTML5 Template
                             <div class="col-lg-7">
                                 <div class="slider pb-60">
                                     <div class="slider__text">
-                                        <h3 class="mb-15" data-animation="fadeInUp" data-delay=".4s">{{ $slider->text }}</h3>
+                                        <h3 class="mb-15" data-animation="fadeInUp" data-delay=".4s">{!! $slider->text !!}</h3>
                                     </div>
                                 </div>
                             </div>
@@ -31,7 +31,7 @@ Blog HTML5 Template
                     @section('content')
                     <div class="col-xl-8 col-lg-8">
                         <div class="row">
-                            @foreach($posts as $post)
+                            @foreach($posts->reverse() as $post)
                             <div class="col-xl-6 col-lg-6 col-md-6">
                                 <div class="postbox mb-20">
                                     <div class="postbox__thumb">
@@ -42,10 +42,15 @@ Blog HTML5 Template
                                 </div>
                                 <div class="postbox__text mb-30">
                                     <h4 class="title-16 font-600 pr-0">
-                                        <a href="{{ route('single.blog', $post->slug) }}"> {{ $post->title }} </a>
+                                        <a href="{{ route('single.blog', $post->slug) }}"> {!! $post->title !!} </a>
                                     </h4>
                                     <div class="postbox__text-meta pb-10">
                                         <ul>
+                                            <li>
+                                                <span class="post-cat">
+                                                    <a href="{{ route('blog.category', $post->category->slug) }}" tabindex="0">{{ $post->category->name }}</a>
+                                                </span>
+                                            </li>
                                             <li>
                                                 <i class="fas fa-calendar-alt"></i>
                                                 <span>{{ $post->created_at->format('d M Y') }}</span>
@@ -58,11 +63,7 @@ Blog HTML5 Template
                                     </div>
                                     <div class="desc-text mb-20">
                                         <p>
-                                            @if(strlen($post->summery) <= 150)
-                                            {{ $post->summery }}
-                                            @else
-                                            {{ substr($post->summery, 0, 150) }}...
-                                            @endif
+                                        {!! substr($post->summery, 0, 230) !!}
                                         </p>
                                     </div>
                                     <a href="{{ route('single.blog', $post->slug) }}" class="btn btn-soft">read more</a>

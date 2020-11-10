@@ -55,7 +55,7 @@ All Posts
                                 </tr>
                             </tfoot>
                             <tbody>
-                            @foreach($posts as $post)
+                            @foreach($posts->reverse() as $post)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>
@@ -68,7 +68,7 @@ All Posts
                                     </td>
                                     <td>
                                         <div style="width: 150px;">
-                                            <a href="#">{{ $post->category->name }}</a>
+                                            <a href="#"> {{ $post->category->name }} </a>
                                         </div>
                                     </td>
                                     <td>

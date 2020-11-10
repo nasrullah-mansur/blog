@@ -2681,7 +2681,7 @@
                 f = e.langInfo;
             this.initialize = function() {
                 var a = e.dialogsInBody ? $(document.body) : d,
-                    b = '<div class="form-group"><label>' + f.link.textToDisplay + '</label><input class="note-link-text form-control" type="text" /></div><div class="form-group"><label>' + f.link.url + '</label><input class="note-link-url form-control" type="text" value="http://" /></div>' + (e.disableLinkTarget ? "" : '<div class="checkbox"><label><input type="checkbox" checked> ' + f.link.openInNewWindow + "</label></div>"),
+                    b = '<div class="form-group"><label>' + f.link.textToDisplay + '</label><input class="note-link-text form-control" type="text" /></div><div class="form-group"><label>' + f.link.url + '</label><input class="note-link-url form-control" type="text" value="http://" /></div>' + (e.disableLinkTarget ? "" : '<div class="" id="myCheckbox"><label><input type="checkbox" checked> ' + f.link.openInNewWindow + "</label></div>"),
                     g = '<button href="#" class="btn btn-primary note-link-btn disabled" disabled>' + f.link.insert + "</button>";
                 this.$dialog = c.dialog({
                     className: "link-dialog",

@@ -144,7 +144,7 @@ if($user_info->first()->role == 1) {
         <ul class="list">
             <li>
                 <div class="user-info">
-                    <a class="image" href="profile.html"><img src="{{ $user_info->first()->profile->image == '' ? url('back/images/profile_av.jpg') : $user_info->first()->profile->image}}" alt="User"></a>
+                    <a class="image" href="{{ route('profile.edit', auth()->user()->id) }}"><img src="{{ $user_info->first()->profile->image == '' ? url('back/images/profile_av.jpg') : $user_info->first()->profile->image}}" alt="User"></a>
                     <div class="detail text-left">
                         <h4>
                             @if($user_info->first()->profile->name == '')
@@ -193,9 +193,9 @@ if($user_info->first()->role == 1) {
                 </ul>
             </li>
             @if($user_info->first()->role == 1)
-            <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-folder"></i><span>Media</span></a>
+            <li class="{{ (route::is('gallery') ? 'active open' : '') }}"> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-folder"></i><span>Media</span></a>
                 <ul class="ml-menu">
-                    <li><a href="file-dashboard.html">Images</a></li>
+                    <li class="{{ Route::is('gallery') ? 'active' : '' }}"><a href="{{ route('gallery') }}">Images</a></li>
                     <li><a href="file-documents.html">File Manager</a></li>
                 </ul>
             </li>

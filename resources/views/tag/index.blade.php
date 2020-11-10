@@ -66,7 +66,7 @@ Category
                         </tfoot>
                         <tbody>
 
-                            @foreach($tags as $tag)
+                            @foreach($tags->reverse() as $tag)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $tag->name }}</td>

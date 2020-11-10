@@ -11,8 +11,8 @@ Blog HTML5 Template :: Blog
                             @foreach($posts as $post)
                             <div class="postbox mb-40">
                                 <div class="postbox__thumb mb-25">
-                                    <a href="">
-                                        <img src="" alt="hero image">
+                                    <a href="{{ Route('single.blog', $post->slug) }}">
+                                        <img src="{{ url('front/images/post', $post->image) }}" alt="hero image">
                                     </a>
                                 </div>
                                 <div class="postbox__text">
@@ -20,12 +20,12 @@ Blog HTML5 Template :: Blog
                                         <ul>
                                             <li>
                                                 <span class="post-cat">
-                                                    <a href="javascript:void(0)" tabindex="0"></a>
+                                                    <a href="javascript:void(0)" tabindex="0">{{$post->category->name}}</a>
                                                 </span>
                                             </li>
                                             <li>
                                                 <i class="fas fa-calendar-alt"></i>
-                                                <span></span>
+                                                <span> {{$post->created_at->format('d M y')}} </span>
                                             </li>
                                             <li>
                                                 <i class="far fa-comment"></i>
@@ -34,12 +34,12 @@ Blog HTML5 Template :: Blog
                                         </ul>
                                     </div>
                                     <h4 class="title-30 font-600 pr-0">
-                                        <a href=""></a>
+                                        <a href="{{ Route('single.blog', $post->slug) }}">{!! $post->title !!}</a>
                                     </h4>
                                     <div class="desc-text mb-20">
-                                        <p></p>
+                                        <p>{!! $post->summery !!}</p>
                                     </div>
-                                    <a class="btn" href="">read more</a>
+                                    <a class="btn" href="{{ Route('single.blog', $post->slug) }}">read more</a>
                                 </div>
                             </div>
                             @endforeach
