@@ -17,6 +17,13 @@ Banner Slider
 <a href="{{ route('slider.create') }}" class="btn btn-primary float-right" style="line-height: 22px; margin-right: 5px;">Add New Slide</a>
 @endsection
 
+@section('breadcrumb')
+<ul class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="zmdi zmdi-home"></i> Dashboard</a></li>
+    <li class="breadcrumb-item active">All Slider</li>
+</ul>
+@endsection
+
 @section('content')
 <div class="container-fluid">
     <!-- Exportable Table -->

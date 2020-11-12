@@ -25,6 +25,14 @@ Edit and Update Post
 </style>
 @endsection
 
+@section('breadcrumb')
+<ul class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="zmdi zmdi-home"></i> Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('post.index') }}">Post</a></li>
+    <li class="breadcrumb-item active">Edit</li>
+</ul>
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <form action="{{ route('post.update', $post->id) }}" method="POST" enctype="multipart/form-data">

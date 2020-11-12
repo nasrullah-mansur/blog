@@ -8,8 +8,11 @@ Our Profile
 Our Profile
 @endsection
 
-@section('css_plugins')
-
+@section('breadcrumb')
+<ul class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="zmdi zmdi-home"></i> Dashboard</a></li>
+    <li class="breadcrumb-item active">All Users</li>
+</ul>
 @endsection
 
 @section('top_btn')
@@ -27,7 +30,9 @@ Our Profile
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li><a href="{{ route('user.show', $user->id) }}">Show</a></li>
                                 <li><a href="{{ route('user.edit', $user->id) }}">Edit</a></li>
+                                @if($user->role != 1)
                                 <li><a class="delete-btn" href="javascript:void(0);">Delete</a></li>
+                                @endif
                                 <form class="delete-form" action="{{ route('user.destroy', $user->id) }}" method="POST" class="d-none">
                                     @csrf
                                     @method('DELETE')

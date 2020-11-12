@@ -8,6 +8,13 @@ Image Gallery
 Image Gallery
 @endsection
 
+@section('breadcrumb')
+<ul class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="zmdi zmdi-home"></i> Dashboard</a></li>
+    <li class="breadcrumb-item active">Gallery</li>
+</ul>
+@endsection
+
 
 @section('content')
 <div class="container-fluid">
@@ -23,7 +30,7 @@ Image Gallery
                     </ul>                        
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane in active" id="home">
+                        <div role="tabpanel" class="tab-pane in" id="home">
                             <h4>User Images</h4>
                             <div id="aniimated-thumbnials" class="list-unstyled row clearfix">
                                 @foreach($users as $user)
@@ -49,7 +56,7 @@ Image Gallery
                                 </div>
                             </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="blog">
+                        <div role="tabpanel" class="tab-pane active" id="blog">
                             <h4>Blog Images</h4>
                             <div id="aniimated-thumbnials" class="list-unstyled row clearfix">
                                 @foreach($blogs as $post)

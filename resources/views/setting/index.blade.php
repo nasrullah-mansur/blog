@@ -56,6 +56,13 @@ Theme Setting
 </style>
 @endsection
 
+@section('breadcrumb')
+<ul class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="zmdi zmdi-home"></i> Dashboard</a></li>
+    <li class="breadcrumb-item active">Theme Setting</li>
+</ul>
+@endsection
+
 
 @section('content')
 <div class="container-fluid">

@@ -13,6 +13,13 @@ Banner Slider Create
 <link rel="stylesheet" href="{{ asset('back/plugins/summernote/dist/summernote.css') }}"/>
 @endsection
 
+@section('breadcrumb')
+<ul class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="zmdi zmdi-home"></i> Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="{{ url('admin/slider') }}">Slider</a></li>
+    <li class="breadcrumb-item active">Create</li>
+</ul>
+@endsection
 
 @section('content')
 <div class="container-fluid">

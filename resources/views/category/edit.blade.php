@@ -17,6 +17,14 @@ Category
 <a href="{{ route('category.index') }}" class="btn btn-primary float-right" style="line-height: 22px; margin-right: 5px;">Add New Category</a>
 @endsection
 
+@section('breadcrumb')
+<ul class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="zmdi zmdi-home"></i> Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="{{ url('admin/category') }}">Category</a></li>
+    <li class="breadcrumb-item active">Edit</li>
+</ul>
+@endsection
+
 @section('content')
 <div class="container-fluid">
     <!-- Basic Validation -->

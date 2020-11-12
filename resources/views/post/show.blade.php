@@ -8,6 +8,14 @@ Blog Create
 Create a new blog
 @endsection
 
+@section('breadcrumb')
+<ul class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="zmdi zmdi-home"></i> Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('post.index') }}">Post</a></li>
+    <li class="breadcrumb-item active">Single Post</li>
+</ul>
+@endsection
+
 
 @section('content')
 <div class="container">

@@ -29,6 +29,7 @@ if($user_info->first()->role == 1) {
 <!-- Custom Css -->
 <link rel="stylesheet" href="{{asset('back/css/style.min.css')}}">
 @yield('custom_css')
+
 </head>
 
 <body class="theme-blush">
@@ -272,11 +273,7 @@ if($user_info->first()->role == 1) {
             <div class="row">
                 <div class="col-lg-7 col-md-6 col-sm-12">
                     <h2>@yield('page_title')</h2>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html"><i class="zmdi zmdi-home"></i> Aero</a></li>
-                        <li class="breadcrumb-item"><a href="blog-dashboard.html">Blog</a></li>
-                        <li class="breadcrumb-item active">Dashboard</li>
-                    </ul>
+                    @yield('breadcrumb')
                     <button class="btn btn-primary btn-icon mobile_menu" type="button"><i class="zmdi zmdi-sort-amount-desc"></i></button>
                 </div>
                 <div class="col-lg-5 col-md-6 col-sm-12">

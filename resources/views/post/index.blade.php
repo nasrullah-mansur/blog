@@ -13,6 +13,13 @@ All Posts
 <link rel="stylesheet" href="{{ asset('back/plugins/jquery-datatable/dataTables.bootstrap4.min.css') }}">
 @endsection
 
+@section('breadcrumb')
+<ul class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="zmdi zmdi-home"></i> Dashboard</a></li>
+    <li class="breadcrumb-item active">All Posts</li>
+</ul>
+@endsection
+
 @section('top_btn')
 <a href="{{ route('post.create') }}" class="btn btn-primary float-right" style="line-height: 22px; margin-right: 5px;">Add New Post</a>
 @endsection

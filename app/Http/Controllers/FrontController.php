@@ -26,7 +26,8 @@ class FrontController extends Controller
     // Return a single post;
     public function singlepost($slug) {
         $post = POST::with('category', 'tag', 'user')->where('slug', $slug)->firstOrFail();
-        $posts = Post::where('category_id', $post->category_id)->inRandomOrder()->limit(3)->get();
+        // $posts = Post::where('category_id', $post->category_id)->inRandomOrder()->limit(3)->get();
+        $posts = Post::where('category_id', $post->category_id)->where('slug', '!=', $slug)->inRandomOrder()->limit(3)->get();
 
         $prev = Post::where('id', '<', $post->id)->orderBy('id','desc')->first();
         // $prev = Post::where('id', '<', $post->id)->get()->sortByDesc('id')->first();

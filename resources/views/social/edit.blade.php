@@ -16,6 +16,14 @@ Category
 <a href="{{ route('social.index') }}" class="btn btn-primary float-right" style="line-height: 22px; margin-right: 5px;">Add New Social</a>
 @endsection
 
+@section('breadcrumb')
+<ul class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="zmdi zmdi-home"></i> Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="{{ url('admin/social') }}">Social</a></li>
+    <li class="breadcrumb-item active">Add Social</li>
+</ul>
+@endsection
+
 @section('content')
 <div class="container-fluid">
     <!-- Basic Validation -->

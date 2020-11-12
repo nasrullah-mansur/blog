@@ -147,6 +147,12 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+
+        if($user->role == 1) {
+            Toastr::warning('This user can\'t be deleted', '', ["positionClass" => "toast-top-right"]);
+            return redirect()->back();
+        }
+
         $user->delete();
         Toastr::success('Successfully Delete', '', ["positionClass" => "toast-top-right"]);
         return redirect()->route('user.index');

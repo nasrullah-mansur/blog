@@ -14,6 +14,13 @@ Category
 <link rel="stylesheet" href="{{ asset('back/plugins/jquery-datatable/dataTables.bootstrap4.min.css') }}">
 @endsection
 
+@section('breadcrumb')
+<ul class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="zmdi zmdi-home"></i> Dashboard</a></li>
+    <li class="breadcrumb-item active">All Tags</li>
+</ul>
+@endsection
+
 @section('content')
 <div class="container-fluid">
     <div class="row clearfix">

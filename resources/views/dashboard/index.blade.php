@@ -70,6 +70,15 @@ Blog Dashboard
 <link rel="stylesheet" href="{{asset('back/plugins/bootstrap/css/bootstrap.min.css')}}">
 <link rel="stylesheet" href="{{ asset('back/plugins/jquery-datatable/dataTables.bootstrap4.min.css') }}">
 @endsection
+
+
+@section('breadcrumb')
+<ul class="breadcrumb">
+    <li class="breadcrumb-item active">Dashboard</li>
+</ul>
+@endsection
+
+
 @section('content')
 <div class="container-fluid">
     <div class="row clearfix">
@@ -146,7 +155,7 @@ Blog Dashboard
                 </div>
                 <div class="text">
                     <span>Subscribers</span>
-                    <strong>3000</strong>
+                    <strong>{{ $subscriber_count }}</strong>
                 </div>
             </div>
         </div>
@@ -167,7 +176,7 @@ Blog Dashboard
             <div class="most-visited-page">
                 <div class="card h-100">
                     <div class="header">
-                        <h2>Most Visited Pages</h2>
+                        <h2>Most Visited Posts</h2>
                     </div>
                     <div class="body">
                         <div class="table-responsive">
@@ -225,6 +234,66 @@ Blog Dashboard
 
         <div class="col-lg-6">
             <div class="most-visited-page">
+                <div class="card h-100">
+                    <div class="header">
+                        <h2>Recent posts</h2>
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Post</th>
+                                        <th>Views</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Post</th>
+                                        <th>Views</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <a href="#">Laravel is a web application framework with expressive.</a>
+                                        </td>
+                                        <td>123</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <a href="#">Laravel is a web application framework with expressive.</a>
+                                        </td>
+                                        <td>123</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <a href="#">Laravel is a web application framework with expressive.</a>
+                                        </td>
+                                        <td>123</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <a href="#">Laravel is a web application framework with expressive.</a>
+                                        </td>
+                                        <td>123</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="most-visited-country">
                 <div class="card h-100">
                     <div class="header">
                         <h2>Session by country</h2>
@@ -283,13 +352,35 @@ Blog Dashboard
             </div>
         </div>
 
-
-
-
+        <div class="col-lg-6">
+            <div class="card h100">
+                <div class="header">
+                    <h2>Quick contact</h2>
+                </div>
+                <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="card">
+                        <div class="body">
+                            <form>
+                                <div class="form-group">                                
+                                    <input type="email" id="email_address" class="form-control" placeholder="To: ">
+                                </div>
+                                <div class="form-group">                                
+                                    <input type="text" id="password" class="form-control" placeholder="Subject">
+                                </div>
+                                <div class="form-group">
+                                    <textarea rows="4" class="form-control no-resize" placeholder="Please type what you want..."></textarea>
+                                </div>
+                                <div class="text-right">
+                                    <button type="button" class="btn btn-raised btn-primary btn-round waves-effect">SENT</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
 
 </div>
-@endsection
-
-@section('js_plugins')
-<script src="{{ asset('back/js/pages/tables/jquery-datatable.js') }}"></script>
 @endsection
