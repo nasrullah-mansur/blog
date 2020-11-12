@@ -1,7 +1,7 @@
 @extends('layouts.front')
 
 @section('page_title')
-Blog HTML5 Template
+post HTML5 Template
 @endsection
 
         @section('slider')
@@ -31,24 +31,24 @@ Blog HTML5 Template
                     @section('content')
                     <div class="col-xl-8 col-lg-8">
                         <div class="row">
-                            @foreach($posts->reverse() as $post)
+                            @foreach($posts as $post)
                             <div class="col-xl-6 col-lg-6 col-md-6">
                                 <div class="postbox mb-20">
                                     <div class="postbox__thumb">
-                                        <a href="{{ route('single.blog', $post->slug) }}">
+                                        <a href="{{ route('single.post', $post->slug) }}">
                                             <img src="{{ url('front/images/post', $post->image) }}" alt="hero image">
                                         </a>
                                     </div>
                                 </div>
                                 <div class="postbox__text mb-30">
                                     <h4 class="title-16 font-600 pr-0">
-                                        <a href="{{ route('single.blog', $post->slug) }}"> {!! $post->title !!} </a>
+                                        <a href="{{ route('single.post', $post->slug) }}"> {!! Str::limit($post->title, 120) !!} </a> 
                                     </h4>
                                     <div class="postbox__text-meta pb-10">
                                         <ul>
                                             <li>
                                                 <span class="post-cat">
-                                                    <a href="{{ route('blog.category', $post->category->slug) }}" tabindex="0">{{ $post->category->name }}</a>
+                                                    <a href="{{ route('post.category', $post->category->slug) }}" tabindex="0">{{ $post->category->name }}</a>
                                                 </span>
                                             </li>
                                             <li>
@@ -63,10 +63,10 @@ Blog HTML5 Template
                                     </div>
                                     <div class="desc-text mb-20">
                                         <p>
-                                        {!! substr($post->summery, 0, 230) !!}
+                                        {!! Str::limit($post->summery, 255) !!}
                                         </p>
                                     </div>
-                                    <a href="{{ route('single.blog', $post->slug) }}" class="btn btn-soft">read more</a>
+                                    <a href="{{ route('single.post', $post->slug) }}" class="btn btn-soft">read more</a>
                                 </div>
                             </div>
                             @endforeach

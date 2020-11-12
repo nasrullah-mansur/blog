@@ -37,9 +37,9 @@ class SocialController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required|unique:socials',
-            'class'=>'required|unique:socials',
-            'link'=>'url|required|unique:socials',
+            'name'=>'required|unique:socials|max:255',
+            'class'=>'required|unique:socials|max:255',
+            'link'=>'url|required|unique:socials|max:255',
         ]);
 
         Social::create($request->all());
@@ -83,49 +83,49 @@ class SocialController extends Controller
             if($social->class == $request->class){
                 if($social->link == $request->link){
                     $request->validate([
-                        'name'=>'required',
-                        'class'=>'required',
-                        'link'=>'url|required',
+                        'name'=>'required|max:255',
+                        'class'=>'required|max:255',
+                        'link'=>'url|required|max:255',
                     ]);
                 }else{
                     $request->validate([
-                        'name'=>'required',
-                        'class'=>'required',
-                        'link'=>'url|required|unique:socials',
+                        'name'=>'required|max:255',
+                        'class'=>'required|max:255',
+                        'link'=>'url|required|unique:socials|max:255',
                     ]);
                 }
             }else{
                 $request->validate([
-                    'name'=>'required',
-                    'class'=>'required|unique:socials',
-                    'link'=>'url|required',
+                    'name'=>'required|max:255',
+                    'class'=>'required|unique:socials|max:255',
+                    'link'=>'url|required|max:255',
                 ]);
             }
         }elseif($social->class == $request->class){
             if($social->link == $request->link){
                 $request->validate([
-                    'name'=>'required|unique:socials',
-                    'class'=>'required',
-                    'link'=>'url|required',
+                    'name'=>'required|unique:socials|max:255',
+                    'class'=>'required|max:255',
+                    'link'=>'url|required|max:255',
                 ]);
             }else{
                 $request->validate([
-                    'name'=>'required|unique:socials',
-                    'class'=>'required',
-                    'link'=>'url|required|unique:socials',
+                    'name'=>'required|unique:socials|max:255',
+                    'class'=>'required|max:255',
+                    'link'=>'url|required|unique:socials|max:255',
                 ]);
             }
         }elseif($social->link == $request->link){
             $request->validate([
-                'name'=>'required|unique:socials',
-                'class'=>'required|unique:socials',
-                'link'=>'url|required',
+                'name'=>'required|unique:socials|max:255',
+                'class'=>'required|unique:socials|max:255',
+                'link'=>'url|required|max:255',
             ]);
         }else{
             $request->validate([
-                'name'=>'required|unique:socials',
-                'class'=>'required|unique:socials',
-                'link'=>'url|required|unique:socials',
+                'name'=>'required|unique:socials|max:255',
+                'class'=>'required|unique:socials|max:255',
+                'link'=>'url|required|unique:socials|max:255',
             ]);
         }
         

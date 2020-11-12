@@ -1,3 +1,8 @@
+<?php
+    use App\Setting;
+    $setting = Setting::all()->first();
+?>
+
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -8,7 +13,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('front/img/favicon.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url('/', $setting->favicon) }}">
     <!-- Place favicon.ico in the root directory -->
 
     <!-- CSS here -->
@@ -55,7 +60,7 @@
                     <div
                         class="col-lg-4 col-md-3 d-flex align-items-center justify-content-md-start justify-content-center">
                         <div class="header__logo text-center text-md-left mb-20">
-                            <a href="{{ route('frontIndex') }}"><img src="{{ asset('front/img/logo/logo.png') }}" alt="Header Logo"></a>
+                            <a href="{{ route('frontIndex') }}"><img src="{{ url('/', $setting->header_logo) }}" alt="Header Logo"></a>
                         </div>
                     </div>
                     <div class="col-lg-8 col-md-9">
@@ -118,7 +123,7 @@
                             <h3 class="widget-title">Categories</h3>
                             <ul>
                                 @foreach($categories as $category)
-                                <li><a href="{{ route('blog.category', $category->slug) }}">{{ $category->name}} <span>{{ count($category->posts) }}</span></a></li>
+                                <li><a href="{{ route('post.category', $category->slug) }}">{{ $category->name}} <span>{{ count($category->posts) }}</span></a></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -220,8 +225,9 @@
                         <div class="widget widget-border mb-40">
                             <h3 class="widget-title">Subscribe our Newsletter!</h3>
                             <p>Subscribe to our email newsletter to receive useful articles and special offers.</p>
-                            <form class="widget-subscribe" action="#">
-                                <input type="email" placeholder="Enter your email :">
+                            <form class="widget-subscribe" method="POST" action="{{ route('subscribe') }}">
+                                @csrf
+                                <input type="email" placeholder="Enter your email :" name="email">
                                 <button class="btn">subscribe</button>
                             </form>
                         </div>
@@ -272,7 +278,7 @@
                         <div class="row">
                             <div class="col-xl-2 col-lg-12">
                                 <div class="footer-logo mb-30">
-                                    <a href="#"><img src="{{ url('front/img/logo/footer-logo.png') }}" alt=""></a>
+                                    <a href="#"><img src="{{ url('/', $setting->footer_logo) }}" alt=""></a>
                                 </div>
                             </div>
                             <div class="col-xl-10 col-lg-12">
@@ -284,8 +290,9 @@
                                     </div>
                                     <div class="col-xl-5 col-lg-5">
                                         <div class="subscribe-form mb-30">
-                                            <form action="#">
-                                                <input type="email" placeholder="Enter your email">
+                                            <form method="POST" action="{{ route('subscribe') }}">
+                                                @csrf
+                                                <input type="email" placeholder="Enter your email" name="email">
                                                 <button type="submit">
                                                     subscribe
                                                 </button>
@@ -303,7 +310,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="copyright text-lg-left text-center">
-                                <p>© Copyrights 2018. All rights reserved.</p>
+                                <p> {!! $setting->copyright !!}</p>
                             </div>
                         </div>
                         <div class="col-lg-6">

@@ -44,9 +44,9 @@ class UserController extends Controller
 
         $this->validate($request, array(
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone' => ['required', 'min:11' , 'regex:/^([0-9\s\-\+\(\)]*)$/' , 'unique:users'], 
+            'phone' => ['required', 'min:11' , 'max:255', 'regex:/^([0-9\s\-\+\(\)]*)$/' , 'unique:users'], 
             'role' => ['required'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8', 'max:255', 'confirmed'],
         ));
         
         $user = User::create([
@@ -100,7 +100,7 @@ class UserController extends Controller
         if($user->phone == $request->phone) {
             if($user->email == $request->email){
                 $this->validate($request, array(
-                    'phone' => ['required', 'min:11' , 'numeric'],
+                    'phone' => ['required', 'min:11', 'max:255', 'numeric'],
                     'role' => ['required'],
                     'email' => ['required', 'string', 'email', 'max:255'],
                     'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -108,7 +108,7 @@ class UserController extends Controller
 
             } else {
                 $this->validate($request, array(
-                    'phone' => ['required', 'min:11' , 'numeric'],
+                    'phone' => ['required', 'min:11', 'max:255', 'numeric'],
                     'role' => ['required'],
                     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                     'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -116,10 +116,10 @@ class UserController extends Controller
             }
          } else {
             $this->validate($request, array(
-                'phone' => ['required', 'min:11' , 'numeric' , 'unique:users'],
+                'phone' => ['required', 'min:11', 'max:255', 'numeric' , 'unique:users'],
                 'role' => ['required'],
                 'email' => ['required', 'string', 'email', 'max:255'],
-                'password' => ['required', 'string', 'min:8', 'confirmed'],
+                'password' => ['required', 'string', 'min:8', 'max:255', 'confirmed'],
             ));
          }
 

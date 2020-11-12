@@ -28,6 +28,6 @@ class RegistrationMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.register')->subject('Registration confirmation')->with('request', $this->user);
+        return $this->view('email_template.register')->subject('Registration confirmation')->with('request', $this->user);
     }
 }

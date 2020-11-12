@@ -79,7 +79,7 @@ class ProfileController extends Controller
             'facebook'=>'url|nullable',
             'twitter'=>'url|nullable',
             'linkedin'=>'url|nullable',
-            'name'=>'nullable',
+            'name'=>'nullable|max:200',
             'occupation'=>'nullable',
             'about'=>'nullable',
             'image'=>'nullable',

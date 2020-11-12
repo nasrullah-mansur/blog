@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Brian2694\Toastr\Facades\Toastr;
 
 class CategoryController extends Controller
 {
@@ -39,7 +40,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required|unique:categories',
+            'name'=>'required|max:255|unique:categories',
         ]);
 
         $categories = new Category;
@@ -49,6 +50,7 @@ class CategoryController extends Controller
 
         $categories->save();
 
+        Toastr::success('Category created successful', '', ["positionClass" => "toast-top-right"]);
         return redirect()->route('category.index');
 
     }
@@ -86,7 +88,7 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $request->validate([
-            'name'=>'required|unique:categories',
+            'name'=>'required|max:255|unique:categories',
         ]);
 
 
@@ -94,7 +96,8 @@ class CategoryController extends Controller
         $category->slug = Str::slug($category->name, '-');
 
         $category->save();
-
+        
+        Toastr::success('Category updated successful', '', ["positionClass" => "toast-top-right"]);
         return redirect()->route('category.index');
     }
 
@@ -107,8 +110,17 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
 
+        $categories = Category::with('posts')->where('id', $category->id)->first();
+
+        if(count($categories->posts) > 0) {
+            Toastr::warning('Sorry, this category has post', '', ["positionClass" => "toast-top-right"]);
+            return redirect()->route('category.index');
+        }
+        
+        Toastr::success('Category delete successful', '', ["positionClass" => "toast-top-right"]);
         $category->delete();
         return redirect()->route('category.index');
+
 
     }
 }

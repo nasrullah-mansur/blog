@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Tag;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Brian2694\Toastr\Facades\Toastr;
 
 class TagController extends Controller
 {
@@ -37,12 +38,8 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, array(
-            
-        ));
-
         $request->validate([
-            'name' => 'required|string'
+            'name' => 'required|string|max:255'
         ], [
             'name.required' => 'The tags filed is required',
         ]);
@@ -59,6 +56,8 @@ class TagController extends Controller
                 $tag_table->save();
             }
           }
+
+        Toastr::success('Tags created successful', '', ["positionClass" => "toast-top-right"]);
         return redirect()->route('tag.index');
 
     }
@@ -96,14 +95,14 @@ class TagController extends Controller
     public function update(Request $request, Tag $tag)
     {
         $this->validate($request, array(
-            'name' => 'required|unique:tags'
+            'name' => 'required|unique:tags|max:255'
         ));
 
         $tag->name = strtolower($request->name);
         $tag->slug = Str::of($request->name)->slug('-'); 
 
         $tag->save();
-
+        Toastr::success('Tags updated successful', '', ["positionClass" => "toast-top-right"]);
         return redirect()->route('tag.index');
     }
 
@@ -115,7 +114,16 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
+
+        $tags = Tag::with('posts')->where('id', $tag->id)->first();
+
+        if(count($tags->posts) > 0) {
+            Toastr::warning('Sorry, this tag has post', '', ["positionClass" => "toast-top-right"]);
+            return redirect()->route('tag.index');
+        }
+        
         $tag->delete();
+        Toastr::success('Tag delete successful', '', ["positionClass" => "toast-top-right"]);
         return redirect()->route('tag.index');
     }
 }

@@ -1,13 +1,13 @@
 @extends('layouts.front')
 
 @section('page_title')
-Blog HTML5 Template :: Single Blog
+post HTML5 Template :: Single post
 @endsection
                         @section('content')
                         <div class="col-xl-8 col-lg-8">
                              <!-- post-details -->
                             <div class="post-details">
-                                <h2 class="details-title mb-15">{{ $post->title }}</h2>
+                                <h2 class="details-title mb-15">{{ Str::limit($post->title, 80) }}</h2>
 
                                 <!-- meta -->
                                 <div class="postbox__text-meta pb-30">
@@ -34,8 +34,8 @@ Blog HTML5 Template :: Single Blog
 
                                 <!-- post-content -->
                                 <div class="post-content">
-                                    {!! $post->summery !!}
-                                    <br>
+                                    <h4 style="margin-bottom: 30px;">{!! $post->title !!}</h4>
+                                    <p>{!! $post->summery !!}</p>
                                     {!! $post->content !!}
                                 </div>
 
@@ -46,18 +46,22 @@ Blog HTML5 Template :: Single Blog
                                        <div class="row">
                                            <div class="col-md-6">
                                                 <div class="s-content__prev mb-30">
-                                                    <a href="#0" rel="prev">
+                                                    @if($prev)
+                                                    <a href="{{ route('single.post', $prev->slug) }}" rel="prev">
                                                         <span>Previous Post</span>
-                                                         Farmers plead for bullets to put down emaciated stock
+                                                         {!! Str::limit($prev->title, 60) !!}
                                                     </a>
+                                                    @endif
                                                 </div>
                                            </div>
                                            <div class="col-md-6">
                                                 <div class="s-content__next mb-30 text-left text-md-right">
-                                                    <a href="#0" rel="next">
+                                                @if($next)
+                                                    <a href="{{ route('single.post', $next->slug) }}" rel="prev">
                                                         <span>Next Post</span>
-                                                         Nahan downplays Liberal lership tensions after white ant
+                                                         {!! Str::limit($next->title, 60) !!}
                                                     </a>
+                                                    @endif
                                                 </div>
                                            </div>
                                        </div>
@@ -70,11 +74,12 @@ Blog HTML5 Template :: Single Blog
                                         <h2>You may also like</h2>
                                     </div>
                                     <div class="row">
+                                        @foreach($posts as $post)
                                         <div class="col-lg-4 col-md-4">
                                             <div class="postbox mb-30">
                                                 <div class="postbox__thumb">
-                                                    <a href="#">
-                                                        <img class="img-100" src="{{ url('front/img/trendy/sm1.jpg') }}" alt="hero image">
+                                                    <a href="{{ route('single.post', $post->slug) }}">
+                                                        <img class="img-100" src="{{ url('front/images/post', $post->image) }}" alt="hero image">
                                                     </a>
                                                 </div>
                                                 <div class="postbox__text pt-10">
@@ -82,7 +87,7 @@ Blog HTML5 Template :: Single Blog
                                                         <ul>
                                                             <li>
                                                                 <i class="fas fa-calendar-alt"></i>
-                                                                <span>01 Sep 2018</span>
+                                                                <span>{{ $post->created_at->format('d M yy') }}</span>
                                                             </li>
                                                             <li>
                                                                 <i class="far fa-comment"></i>
@@ -91,63 +96,12 @@ Blog HTML5 Template :: Single Blog
                                                         </ul>
                                                     </div>
                                                     <h4 class="pr-0">
-                                                        <a href="#">Paul Manafort’s Accountant Testifies She Helped Alter Financial</a>
+                                                        <a href="{{ route('single.post', $post->slug) }}">{!! Str::limit($post->title, 90) !!}</a>
                                                     </h4>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-4">
-                                            <div class="postbox mb-30">
-                                                <div class="postbox__thumb">
-                                                    <a href="#">
-                                                        <img class="img-100" src="{{ url('front/img/trendy/sm2.jpg') }}" alt="hero image">
-                                                    </a>
-                                                </div>
-                                                <div class="postbox__text pt-10">
-                                                    <div class="postbox__text-meta pb-10">
-                                                        <ul>
-                                                            <li>
-                                                                <i class="fas fa-calendar-alt"></i>
-                                                                <span>01 Sep 2018</span>
-                                                            </li>
-                                                            <li>
-                                                                <i class="far fa-comment"></i>
-                                                                <span>(03)</span>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <h4 class="pr-0">
-                                                        <a href="#">Paul Manafort’s Accountant Testifies She Helped Alter Financial</a>
-                                                    </h4>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-4">
-                                            <div class="postbox mb-30">
-                                                <div class="postbox__thumb">
-                                                    <a href="#">
-                                                        <img class="img-100" src="{{ url('front/img/trendy/sm3.jpg') }}" alt="hero image">
-                                                    </a>
-                                                </div>
-                                                <div class="postbox__text pt-10">
-                                                    <div class="postbox__text-meta pb-10">
-                                                        <ul>
-                                                            <li>
-                                                                <i class="fas fa-calendar-alt"></i>
-                                                                <span>01 Sep 2018</span>
-                                                            </li>
-                                                            <li>
-                                                                <i class="far fa-comment"></i>
-                                                                <span>(03)</span>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <h4 class="pr-0">
-                                                        <a href="#">Paul Manafort’s Accountant Testifies She Helped Alter Financial</a>
-                                                    </h4>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
 
@@ -240,9 +194,8 @@ Blog HTML5 Template :: Single Blog
                         <div class="widget widget-border mb-40">
                             <h3 class="widget-title">Popular Tags</h3>
                             <div class="tagcloud">
-                                @foreach($post->tag->take(10) as $tag)
-                                <a href="{{ route('blog.tag', $tag->slug) }}">{{ $tag->name }}</a>
-
+                                @foreach($tags as $tag)
+                                <a href="{{ route('post.tag', $tag->slug) }}">{{ $tag->name }}</a>
                                 @endforeach
                             </div>
                         </div>

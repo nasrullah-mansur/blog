@@ -138,7 +138,7 @@ if($user_info->first()->role == 1) {
 <aside id="leftsidebar" class="sidebar">
     <div class="navbar-brand">
         <button class="btn-menu ls-toggle-btn" type="button"><i class="zmdi zmdi-menu"></i></button>
-        <a href="{{ route('dashboard') }}"><i class="zmdi zmdi-laptop-mac ml-3"></i><span class="m-l-10">Visit Site</span></a>
+        <a target="_blank" href="{{ url('/') }}"><i class="zmdi zmdi-laptop-mac ml-3"></i><span class="m-l-10">Visit Site</span></a>
     </div>
     <div class="menu">
         <ul class="list">

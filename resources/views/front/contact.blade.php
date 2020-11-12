@@ -1,3 +1,13 @@
+
+<?php
+
+use App\Setting;
+
+    $setting = Setting::all();
+    
+
+?>
+
 <!doctype html>
 <html class="no-js" lang="">
     
@@ -69,7 +79,6 @@
                                             <nav id="mobile-menu">
                                                 <ul>
                                                     <li><a href="{{ route('frontIndex') }}">Home</a></li>
-                                                    <li><a href="{{ route('frontBlog') }}">Blog</a></li>
                                                     <li class="active"><a href="{{ route('frontContact') }}">contact</a></li>
                                                 </ul>
                                             </nav>

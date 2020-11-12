@@ -41,7 +41,7 @@ class SliderController extends Controller
         $this->validate($request, array(
             'text' => 'required|min:5|max:255',
             'status' => 'required',
-            'image' => 'required|image|mimes:jpeg,jpg,gif,png|max:2048',
+            'image' => 'required|image|mimes:jpeg,jpg,gif,png|max:200',
         ));
 
 
@@ -99,7 +99,7 @@ class SliderController extends Controller
         $this->validate($request, array(
             'text' => 'required|min:5|max:255',
             'status' => 'required',
-            'image' => 'nullable',
+            'image' => 'nullable|mimes:jpeg,jpg,gif,png|max:200',
         ));
 
         $slider->text = $request->text;

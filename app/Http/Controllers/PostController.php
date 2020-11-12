@@ -44,16 +44,16 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
-            'summery' => 'required|max:255',
+            'title' => 'required|max:255',
+            'summery' => 'required|max:555',
             'content' => 'required',
             'category_id' => 'required',
             'tag' => 'required',
-            'image' => 'required',
+            'image' => 'required|mimes:jpeg,jpg,gif,png|max:200',
             'alt' => 'required|max:255',
             'meta_des' => 'required|max:255',
             'meta_key' => 'required|max:255',
-            'slug' => 'required|unique:posts',
+            'slug' => 'required|max:255|unique:posts',
         ], [
             'category_id.required' => 'The category filed is required',
         ]);
@@ -132,12 +132,12 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $request->validate([
-            'title' => 'required',
-            'summery' => 'required|max:255',
+            'title' => 'required|max:255',
+            'summery' => 'required|max:555',
             'content' => 'required',
             'category_id' => 'required',
             'tag' => 'required',
-            'image' => 'nullable',
+            'image' => 'nullable|mimes:jpeg,jpg,gif,png|max:200',
             'alt' => 'required|max:255',
             'meta_des' => 'required|max:255',
             'meta_key' => 'required|max:255',
@@ -207,7 +207,6 @@ class PostController extends Controller
         if (File::exists($image_path)) {
             File::delete($image_path);
         } 
-        
         $post->tag()->detach();
         $post->delete();
         return redirect()->route('post.index');

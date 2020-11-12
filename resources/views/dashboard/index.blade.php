@@ -77,11 +77,10 @@ Blog Dashboard
             <div class="report-item">
                 <div class="icon">
                     <i class="zmdi zmdi-collection-text"></i>
-                    
                 </div>
                 <div class="text">
                     <span>posts</span>
-                    <strong>30</strong>
+                    <strong>{{ $post_count }}</strong>
                 </div>
             </div>
         </div>
@@ -103,7 +102,7 @@ Blog Dashboard
                 </div>
                 <div class="text">
                     <span>categories</span>
-                    <strong>6</strong>
+                    <strong>{{ $category_count }}</strong>
                 </div>
             </div>
         </div>
@@ -114,7 +113,7 @@ Blog Dashboard
                 </div>
                 <div class="text">
                     <span>tags</span>
-                    <strong>30</strong>
+                    <strong>{{ $tag_count }}</strong>
                 </div>
             </div>
         </div>
@@ -125,7 +124,7 @@ Blog Dashboard
                 </div>
                 <div class="text">
                     <span>Users</span>
-                    <strong>130</strong>
+                    <strong>{{ $user_count }}</strong>
                 </div>
             </div>
         </div>
@@ -158,7 +157,7 @@ Blog Dashboard
                 </div>
                 <div class="text">
                     <span>Galleries</span>
-                    <strong>380</strong>
+                    <strong>{{ $gallery_count }}</strong>
                 </div>
             </div>
         </div>
