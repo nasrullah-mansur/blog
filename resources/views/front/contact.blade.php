@@ -1,11 +1,7 @@
 
 <?php
-
-use App\Setting;
-
-    $setting = Setting::all();
-    
-
+    use App\Setting;
+    $setting = Setting::all()->first();
 ?>
 
 <!doctype html>
@@ -62,7 +58,7 @@ use App\Setting;
                     <div
                         class="col-lg-4 col-md-3 d-flex align-items-center justify-content-md-start justify-content-center">
                         <div class="header__logo text-center text-md-left mb-20">
-                            <a href="{{ route('frontIndex') }}"><img src="{{ asset('front/img/logo/logo.png') }}" alt="Header Logo"></a>
+                            <a href="{{ route('frontIndex') }}"><img src="{{ url($setting->header_logo) }}" alt="Brand logo"></a>
                         </div>
                     </div>
                     <div class="col-lg-8 col-md-9">
@@ -149,20 +145,35 @@ use App\Setting;
                         <div class="col-xl-7 col-lg-6">
                             <div class="contact-form mb-30">
                                 <h3>Do you have any question?</h3>
-                                <form id="contact-form" action="" method="POST">
+                                <form id="contact-form" action="{{ route('contact.store') }}" method="POST">
+                                    @csrf
                                     <div class="row">
                                         <div class="col-xl-6">
                                             <input name="name" type="text" placeholder="Name">
+                                            @if($errors->has('name'))
+                                            <span style="color: red;">{{ $errors->first('name') }}</span>
+                                            @endif
                                         </div>
                                         <div class="col-xl-6">
                                             <input name="email" type="email" placeholder="Email">
+                                            @if($errors->has('email'))
+                                            <span style="color: red;">{{ $errors->first('email') }}</span>
+                                            @endif
                                         </div>
                                         <div class="col-xl-12">
                                             <input name="subject" type="text" placeholder="Subject">
+                                            @if($errors->has('subject'))
+                                            <span style="color: red;">{{ $errors->first('subject') }}</span>
+                                            @endif
                                         </div>
                                         <div class="col-xl-12">
-                                            <textarea name="message" id="mesage" cols="30" rows="10" placeholder="Message"></textarea>
+                                            <textarea name="content" id="mesage" cols="30" rows="10" placeholder="Message"></textarea>
+                                            @if($errors->has('content'))
+                                            <span style="color: red;">{{ $errors->first('content') }}</span>
+                                            @endif
+                                            <div style="margin-top: 30px;">
                                             <button class="btn brand-btn" type="submit">send message</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
@@ -239,11 +250,14 @@ use App\Setting;
         <script src="{{ asset('front/js/vendor/jquery-1.12.4.min.js') }}"></script>
         <script src="{{ asset('front/js/popper.min.js') }}"></script>
         <script src="{{ asset('front/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('front/js/isotope.pkgd.min.js') }}"></script>
         <script src="{{ asset('front/js/one-page-nav-min.js') }}"></script>
+        <script src="{{ asset('front/js/slick.min.js') }}"></script>
         <script src="{{ asset('front/js/jquery.meanmenu.min.js') }}"></script>
         <script src="{{ asset('front/js/wow.min.js') }}"></script>
         <script src="{{ asset('front/js/jquery.scrollUp.min.js') }}"></script>
         <script src="{{ asset('front/js/imagesloaded.pkgd.min.js') }}"></script>
+        <script src="{{ asset('front/js/jquery.magnific-popup.min.js') }}"></script>
         <script src="{{ asset('front/js/plugins.js') }}"></script>
         <script src="{{ asset('front/js/main.js') }}"></script>
     </body>

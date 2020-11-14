@@ -163,6 +163,8 @@ if($user_info->first()->role == 1) {
                 </div>
             </li>
             <li class="{{ (Request::is('admin') ? 'active' : ' ') }}"><a href="{{ route('dashboard') }}"><i class="zmdi zmdi-home"></i><span>Dashboard</span></a></li>
+            <li class="{{ (Route::is('contact*') ? 'active' : ' ') }}"><a href="{{ route('contact.index') }}"><i class="zmdi zmdi-account-box-mail"></i><span>Contact</span></a></li>
+            <hr>
             <li class="{{ (Request::is('admin/profile*', 'admin/change-password') ? 'active open' : '') }}"><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-account"></i><span>Our Profile</span></a>
                 <ul class="ml-menu">
                     <li class="{{ Route::is('profile.index') ? 'active' : '' }}"><a href="{{ route('profile.index') }}">My Profile</a></li>

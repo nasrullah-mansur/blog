@@ -60,7 +60,7 @@
                     <div
                         class="col-lg-4 col-md-3 d-flex align-items-center justify-content-md-start justify-content-center">
                         <div class="header__logo text-center text-md-left mb-20">
-                            <a href="{{ route('frontIndex') }}"><img src="{{ url('/', $setting->header_logo) }}" alt="Header Logo"></a>
+                            <a href="{{ route('frontIndex') }}"><img src="{{ url($setting->header_logo) }}" alt="Brand logo"></a>
                         </div>
                     </div>
                     <div class="col-lg-8 col-md-9">

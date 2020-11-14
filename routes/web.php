@@ -32,18 +32,25 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::resource('/tag', 'TagController');
     Route::resource('/post', 'PostController');
 
+    
     // Administrator;
     Route::middleware(['administrator'])->group(function () {
         Route::resource('/slider', 'SliderController');
         Route::resource('/social', 'SocialController');
         Route::resource('/setting', 'SettingController');
+        
+        Route::post('/quick', 'EmailController@quickMail')->name('quickMail');
+        Route::get('/contact', 'ContactController@index')->name('contact.index');
+        Route::get('/contact/{id}', 'ContactController@show')->name('contact.show');
+        Route::get('/contact/reply/{id}', 'ContactController@reply')->name('contact.reply');
+        Route::post('/contact/reply/send', 'ContactController@sendreply')->name('contact.reply.send');
+        Route::post('/contact/delete/{id}', 'ContactController@destroy')->name('contact.delete');
 
         // Super admin;
         Route::middleware(['super_admin'])->group(function () {
             Route::resource('/user', 'UserController');
             Route::get('/gallery', 'GalleryController@index')->name('gallery');
         });
-
     });
         
 });
@@ -60,16 +67,5 @@ Route::get('/contact', 'FrontController@contact')->name('frontContact');
 
 Route::post('/subscribe', 'SubscriberController@store')->name('subscribe');
 
+Route::post('/contact', 'ContactController@store')->name('contact.store');
 
-
-Route::get('test', function() {
-    
-    // $categories = Category::orderBy('name', 'ASC')->get();
-    // $categories = Category::all()->sortByDesc('name');
-
-    $categories = Category::all()->random(3);
-
-
-    return $categories;
-
-});

@@ -4055,7 +4055,7 @@ blockquote footer::before {
   border-width: 0 0 1px;
   font-size: 13px;
   height: 50px;
-  margin-bottom: 30px;
+  margin-top: 30px;
   width: 100%;
   border: 0;
   border: 1px solid #ddd;
@@ -4073,7 +4073,7 @@ blockquote footer::before {
   border-style: none none solid;
   border-width: 0 0 1px;
   height: 125px;
-  margin-bottom: 30px;
+  margin-top: 30px;
   width: 100%;
   border: 1px solid #ddd;
   padding: 15px;

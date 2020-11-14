@@ -361,18 +361,28 @@ Blog Dashboard
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="card">
                         <div class="body">
-                            <form>
+                            <form action="{{ route('quickMail') }}" method="POST">
+                                @csrf
                                 <div class="form-group">                                
-                                    <input type="email" id="email_address" class="form-control" placeholder="To: ">
+                                    <input type="email" id="email_address" class="form-control" placeholder="To:" name="email" value="{{ old('email') }}">
+                                    @if($errors->has('email'))
+                                    <span style="color: red;">{{ $errors->first('email') }}</span>
+                                    @endif
                                 </div>
                                 <div class="form-group">                                
-                                    <input type="text" id="password" class="form-control" placeholder="Subject">
+                                    <input type="text" class="form-control" placeholder="Subject" name="subject" value="{{ old('subject') }}">
+                                    @if($errors->has('subject'))
+                                    <span style="color: red;">{{ $errors->first('subject') }}</span>
+                                    @endif
                                 </div>
                                 <div class="form-group">
-                                    <textarea rows="4" class="form-control no-resize" placeholder="Please type what you want..."></textarea>
+                                    <textarea name="content" rows="4" class="form-control no-resize" placeholder="Please type what you want...">{{ old('content') }}</textarea>
+                                    @if($errors->has('content'))
+                                    <span style="color: red;">{{ $errors->first('content') }}</span>
+                                    @endif
                                 </div>
                                 <div class="text-right">
-                                    <button type="button" class="btn btn-raised btn-primary btn-round waves-effect">SENT</button>
+                                    <button type="submit" class="btn btn-raised btn-primary btn-round waves-effect">SENT</button>
                                 </div>
                             </form>
                         </div>

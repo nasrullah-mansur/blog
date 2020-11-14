@@ -9,13 +9,17 @@ class SubscriberController extends Controller
 {
     public function store(Request $request) {
         $this->validate($request, array(
-            'email' => 'required|email|max:255|unique:subscribers'
+            'email' => 'required|email|max:255'
         ));
 
-        $subscriber = new Subscriber();
-        $subscriber->email = $request->email;
-
-        $subscriber->save();
+       $dataSub = Subscriber::where('email', $request->email)->first();
+        if($dataSub == '') {
+            $subscriber = new Subscriber();
+            $subscriber->email = $request->email;
+            $subscriber->save();
+        } else {
+            return 'no';
+        }
 
         return redirect()->back();
     }

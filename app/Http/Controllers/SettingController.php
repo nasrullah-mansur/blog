@@ -82,7 +82,7 @@ class SettingController extends Controller
             'address' => 'nullable|max:255',
             'city' => 'nullable|max:255',
             'email' => 'required|email|max:255',
-            'phone' => 'numeric|min:11|max:255',
+            'phone' => 'min:11|max:15|regex:/(01)[0-9]{9}/',
             'header_logo' => 'nullable|mimes:jpeg,jpg,gif,png|max:200',
             'footer_logo' => 'nullable|mimes:jpeg,jpg,gif,png|max:200',
             'favicon' => 'nullable|mimes:jpeg,jpg,gif,png|max:200',
