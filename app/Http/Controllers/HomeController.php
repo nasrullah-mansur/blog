@@ -38,10 +38,10 @@ class HomeController extends Controller
         $slider_count = count(Slider::all('id'));
         $profile_count = count(Profile::where('image', '!=' , null)->select('id')->get());
         $subscriber_count = count(Subscriber::all());
-
         $gallery_count = $profile_count + $slider_count + $post_count;
+        $recent_post = Post::orderBy('id', 'desc')->take(5)->get(['title', 'id']);
 
         // return $profile_count + $slider_count + $post_count;
-        return view('dashboard.index', compact('post_count', 'category_count', 'tag_count', 'user_count', 'gallery_count', 'subscriber_count'));
+        return view('dashboard.index', compact('post_count', 'category_count', 'tag_count', 'user_count', 'gallery_count', 'subscriber_count', 'recent_post'));
     }
 }

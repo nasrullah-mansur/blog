@@ -6,6 +6,7 @@ use App\User;
 use App\Profile;
 use App\Mail\RegistrationMail;
 use App\Http\Controllers\Controller;
+use App\Notifications\RegisterNoti;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Providers\RouteServiceProvider;
@@ -79,7 +80,6 @@ class RegisterController extends Controller
             'user_id' => $user->id,
         ]);
 
-        
         return $user;
     }
 
@@ -93,9 +93,9 @@ class RegisterController extends Controller
     protected function registered($user)
     {
        
-        // Mail::to($user->email)->send(new RegistrationMail($user));
+        Mail::to($user->email)->send(new RegistrationMail($user));
 
-        
+                
     }
     
 

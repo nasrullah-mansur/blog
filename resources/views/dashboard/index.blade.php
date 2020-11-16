@@ -256,34 +256,15 @@ Blog Dashboard
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                    @foreach($recent_post as $post)
                                     <tr>
-                                        <td>1</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>
-                                            <a href="#">Laravel is a web application framework with expressive.</a>
+                                            <a href="{{ url('admin/post', $post->id) }}">{{ $post->title }}</a>
                                         </td>
                                         <td>123</td>
                                     </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>
-                                            <a href="#">Laravel is a web application framework with expressive.</a>
-                                        </td>
-                                        <td>123</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>
-                                            <a href="#">Laravel is a web application framework with expressive.</a>
-                                        </td>
-                                        <td>123</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>
-                                            <a href="#">Laravel is a web application framework with expressive.</a>
-                                        </td>
-                                        <td>123</td>
-                                    </tr>
+                                   @endforeach
                                 </tbody>
                             </table>
                         </div>

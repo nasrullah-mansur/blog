@@ -1,6 +1,7 @@
 
 <?php
 use App\User;
+use Illuminate\Support\Facades\DB;
 $user_info = User::with('profile')->where('id', auth()->user()->id)->get();
 
 if($user_info->first()->role == 1) {
@@ -10,6 +11,9 @@ if($user_info->first()->role == 1) {
 } else {
     $user_role = 'Blogger';
 }
+
+$notifications = DB::table('notifications')->orderBy('created_at', 'desc')->get();
+
 ?>
 
 <!doctype html>
@@ -29,7 +33,6 @@ if($user_info->first()->role == 1) {
 <!-- Custom Css -->
 <link rel="stylesheet" href="{{asset('back/css/style.min.css')}}">
 @yield('custom_css')
-
 </head>
 
 <body class="theme-blush">
@@ -57,72 +60,28 @@ if($user_info->first()->role == 1) {
                 <li class="header">Notifications</li>
                 <li class="body">
                     <ul class="menu list-unstyled">
+                        @foreach($notifications as $notification)
                         <li>
                             <a href="javascript:void(0);">
-                                <div class="icon-circle bg-blue"><i class="zmdi zmdi-account"></i></div>
-                                <div class="menu-info">
-                                    <h4>8 New Members joined</h4>
-                                    <p><i class="zmdi zmdi-time"></i> 14 mins ago </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">
-                                <div class="icon-circle bg-amber"><i class="zmdi zmdi-shopping-cart"></i></div>
-                                <div class="menu-info">
-                                    <h4>4 Sales made</h4>
-                                    <p><i class="zmdi zmdi-time"></i> 22 mins ago </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">
-                                <div class="icon-circle bg-red"><i class="zmdi zmdi-delete"></i></div>
-                                <div class="menu-info">
-                                    <h4><b>Nancy Doe</b> Deleted account</h4>
-                                    <p><i class="zmdi zmdi-time"></i> 3 hours ago </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">
-                                <div class="icon-circle bg-green"><i class="zmdi zmdi-edit"></i></div>
-                                <div class="menu-info">
-                                    <h4><b>Nancy</b> Changed name</h4>
-                                    <p><i class="zmdi zmdi-time"></i> 2 hours ago </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">
-                                <div class="icon-circle bg-grey"><i class="zmdi zmdi-comment-text"></i></div>
-                                <div class="menu-info">
-                                    <h4><b>John</b> Commented your post</h4>
-                                    <p><i class="zmdi zmdi-time"></i> 4 hours ago </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">
+                                @if($notification->type == 'App\Notifications\ProfileNoti')
                                 <div class="icon-circle bg-purple"><i class="zmdi zmdi-refresh"></i></div>
+                                @elseif($notification->type == 'App\Notifications\RegisterNoti')
+                                <div class="icon-circle bg-blue"><i class="zmdi zmdi-account"></i></div>
+                                @elseif($notification->type == 'App\Notifications\PostNoti')
+                                <div class="icon-circle bg-green"><i class="zmdi zmdi-edit"></i></div>
+                                @elseif($notification->type == 'App\Notifications\DeleteNoti')
+                                <div class="icon-circle bg-red"><i class="zmdi zmdi-delete"></i></div>
+                                @endif
                                 <div class="menu-info">
-                                    <h4><b>John</b> Updated status</h4>
-                                    <p><i class="zmdi zmdi-time"></i> 3 hours ago </p>
+                                    <h4>{{ ucwords(json_decode($notification->data)->massage)  }}</h4>
+                                    <p><i class="zmdi zmdi-time"></i> {{ \Carbon\Carbon::parse($notification->created_at)->diffForHumans() }} </p>
                                 </div>
                             </a>
                         </li>
-                        <li>
-                            <a href="javascript:void(0);">
-                                <div class="icon-circle bg-light-blue"><i class="zmdi zmdi-settings"></i></div>
-                                <div class="menu-info">
-                                    <h4>Settings Updated</h4>
-                                    <p><i class="zmdi zmdi-time"></i> Yesterday </p>
-                                </div>
-                            </a>
-                        </li>
+                        @endforeach
                     </ul>
                 </li>
-                <li class="footer"> <a href="javascript:void(0);">View All Notifications</a> </li>
+                <li class="footer"> <a href="{{ route('notification') }}">View All Notifications</a> </li>
             </ul>
         </li>
         <li><a href="{{ route('setting.index') }}" class="" title="Setting"><i class="zmdi zmdi-settings"></i></a></li>
@@ -296,6 +255,8 @@ if($user_info->first()->role == 1) {
 <script src="{{asset('back/plugins/toastr/toastr.min.js')}}"></script>
 
 @yield('js_plugins')
+
+
 
 <script src="{{asset('back/bundles/mainscripts.bundle.js')}}"></script><!-- Custom Js -->
 <!-- <script src="{{asset('back/js/pages/blog/blog.js')}}"></script> -->

@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use App\Tag;
 use App\Post;
 use App\Category;
+use App\Notifications\DeleteNoti;
+use App\Notifications\PostNoti;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Notifications\ProfileNoti;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\File;
 
 class PostController extends Controller
@@ -91,7 +95,9 @@ class PostController extends Controller
             $posts->tag()->attach($tag);
         }
 
-
+        $name = 'store';
+        auth()->user()->notify(new PostNoti($name));
+        Toastr::success('Post added successful', '', ["positionClass" => "toast-top-right"]);
         return redirect()->route('post.index');
 
     }
@@ -104,7 +110,9 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('post.show');
+        $categories = Category::all();
+        $post_info = Post::with('category', 'tag', 'user.profile')->where('id', $post->id)->first();
+        return view('post.show', compact('post_info', 'categories'));
     }
 
     /**
@@ -178,7 +186,6 @@ class PostController extends Controller
             } 
         } 
 
-
         $post->save();
 
         // Tags attach without save;
@@ -188,10 +195,11 @@ class PostController extends Controller
             $post->tag()->attach($tag);
         }
 
-       
-
+        $name = 'store';
+        auth()->user()->notify(new PostNoti($name));
+ 
+        Toastr::success('Post updated successful', '', ["positionClass" => "toast-top-right"]);
         return redirect()->route('post.index');
-
         
     }
 
@@ -209,6 +217,10 @@ class PostController extends Controller
         } 
         $post->tag()->detach();
         $post->delete();
+
+        $name = 'post_delete';
+        auth()->user()->notify(new DeleteNoti($name));
+        Toastr::warning('Post remove successful', '', ["positionClass" => "toast-top-right"]);
         return redirect()->route('post.index');
 
     }

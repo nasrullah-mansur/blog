@@ -5,7 +5,7 @@ Blog Create
 @endsection
 
 @section('page_title')
-Create a new blog
+Post show
 @endsection
 
 @section('breadcrumb')
@@ -24,36 +24,20 @@ Create a new blog
             <div class="card">
                 <div class="blogitem mb-5">
                     <div class="blogitem-image">
-                        <a href="blog-details.html"><img src="{{ asset('back/images/image-gallery/5.jpg') }}" alt="blog image"></a>
-                        <span class="blogitem-date">Monday, December 15, 2018</span>
+                        <a href="blog-details.html"><img src="{{ url('front/images/post', $post_info->image) }}" alt="blog image"></a>
+                        <span class="blogitem-date">{{ $post_info->created_at->format("F j, Y, g:i a") }}</span>
                     </div>
                     <div class="blogitem-content">
                         <div class="blogitem-header">
                             <div class="blogitem-meta">
-                                <span><i class="zmdi zmdi-account"></i>By <a
-                                        href="javascript:void(0);">Michael</a></span>
-                                <span><i class="zmdi zmdi-comments"></i><a
-                                        href="blog-details.html">Comments(3)</a></span>
+                                <span><i class="zmdi zmdi-account"></i>By {{ $post_info->user->profile->name }}</span>
+                                <span><i class="zmdi zmdi-comments"></i>Comments(3)</span>
+                                <span><i class="zmdi zmdi-bookmark"></i>{{ $post_info->category->name }}</span>
                             </div>
                         </div>
-                        <h5><a href="blog-details.html">The Most Advance Business Plan</a></h5>
-                        <p>It is a long established fact that a reader will be distracted by the readable content of a
-                            page when looking at its layout. The point of using Lorem
-                            of letters, as opposed to using 'Content here, content here', making it look like readable
-                            English. There are many variations of passages of Lorem Ipsum available, but the majority
-                            have suffered alteration in some form, by injected humour.</p>
-                        <blockquote class="blockquote">
-                            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Aliquam vulputate tortor nec
-                                commodo ultricies lectus nisl facilisis enim trpis.</p>
-                            <footer>by <a href="blog.html">ThemeMakker</a></footer>
-                        </blockquote>
-                        <p>The point of using Lorem of letters, as opposed to using 'Content here, content here', making
-                            it look like readable English.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incdidunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullaco
-                            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                            voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaeca
-                            cupidatat non proident.</p>
+                        <h5><a href="javascript:void(0);">{!! $post_info->title !!}</a></h5>
+                        <p>{!! $post_info->summery !!}</p>
+                        {!! $post_info->content !!}
                     </div>
                 </div>
             </div>
@@ -95,18 +79,8 @@ Create a new blog
                     <h2><strong>Leave</strong> a Comment</h2>
                 </div>
                 <div class="">
-                    <small>Your email address will not be published. Required fields are marked*</small>
+                    
                     <form class="row comment-form mt-2">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Your Name">
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Email Address">
-                            </div>
-                        </div>
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <textarea rows="4" class="form-control no-resize"
@@ -125,12 +99,9 @@ Create a new blog
                 </div>
                 <div class="body">
                     <ul class="list-unstyled mb-0 widget-categories">
-                        <li><a href="javascript:void(0);">Business Report</a></li>
-                        <li><a href="javascript:void(0);">Business Growth</a></li>
-                        <li><a href="javascript:void(0);">Business Strategy</a></li>
-                        <li><a href="javascript:void(0);">Financial Advise</a></li>
-                        <li><a href="javascript:void(0);">Creative Idea</a></li>
-                        <li><a href="javascript:void(0);">Marketing</a></li>
+                        @foreach($categories as $category)
+                        <li><a href="{{ route('post.category', $category->slug) }}">{{ ucwords($category->name) }}</a></li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -182,11 +153,9 @@ Create a new blog
                 </div>
                 <div class="body">
                     <ul class="list-unstyled mb-0 tag-clouds">
-                        <li><a href="javascript:void(0);" class="tag badge badge-default">Design</a></li>
-                        <li><a href="javascript:void(0);" class="tag badge badge-success">Project</a></li>
-                        <li><a href="javascript:void(0);" class="tag badge badge-info">Creative UX</a></li>
-                        <li><a href="javascript:void(0);" class="tag badge badge-success">Wordpress</a></li>
-                        <li><a href="javascript:void(0);" class="tag badge badge-warning">HTML5</a></li>
+                        @foreach($post_info->tag as $tag)
+                        <li><a href="javascript:void(0);" class="tag badge badge-info">{{ ucwords($tag->name) }}</a></li>
+                        @endforeach
                     </ul>
                 </div>
             </div>

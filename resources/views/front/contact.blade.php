@@ -2,6 +2,7 @@
 <?php
     use App\Setting;
     $setting = Setting::all()->first();
+
 ?>
 
 <!doctype html>
@@ -118,8 +119,12 @@
                                         <div class="contact-meta mb-30">
                                             <div class="contact-meta-info">
                                                 <h4>Phone</h4>
-                                                <p>+ 22 254 362 52 41; </p>
-                                                <p>+ 22 564 241 36 54; </p>
+                                                @php
+                                                    $phones = explode(",",$setting->phone)
+                                                @endphp
+                                                @foreach($phones as $phone)
+                                                <p>{{ $phone }}</p>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
@@ -127,7 +132,7 @@
                                         <div class="contact-meta mb-30">
                                             <div class="contact-meta-info">
                                                 <h4>E-mail</h4>
-                                                <p><a href="#" class="__cf_email__" >nasrullah.cit.bd@gmail.com</a></p>
+                                                <p><a href="#" class="__cf_email__" >{{ $setting->email }}</a></p>
                                             </div>
                                         </div>
                                     </div>
@@ -135,7 +140,7 @@
                                         <div class="contact-meta">
                                             <div class="contact-meta-info">
                                                 <h4>Address</h4>
-                                                <p>252 W 43rd St New York, NY Bangladesh</p>
+                                                <p>{{ $setting->address }}</p>
                                             </div>
                                         </div>
                                     </div>

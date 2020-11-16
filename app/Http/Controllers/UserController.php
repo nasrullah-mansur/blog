@@ -6,12 +6,15 @@ use App\User;
 use App\Profile;
 use Illuminate\Http\Request;
 use App\Mail\RegistrationMail;
+use App\Notifications\RegisterNoti;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 
 class UserController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -60,7 +63,10 @@ class UserController extends Controller
             'user_id' => $user->id,
         ]);
 
+        $for = 'create';
+        $user->notify(new RegisterNoti($for));
         // Mail::to($request->email)->send(new RegistrationMail($request));
+
         Toastr::success('Successfully Added a New User', '', ["positionClass" => "toast-top-right"]);
         return redirect()->route('user.index');
     }

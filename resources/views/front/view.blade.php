@@ -195,7 +195,7 @@ post HTML5 Template :: Single post
                             <h3 class="widget-title">Popular Tags</h3>
                             <div class="tagcloud">
                                 @foreach($tags as $tag)
-                                <a href="{{ route('post.tag', $tag->slug) }}">{{ $tag->name }}</a>
+                                <a href="{{ route('post.tag', $tag->slug) }}">{{ ucwords($tag->name) }}</a>
                                 @endforeach
                             </div>
                         </div>

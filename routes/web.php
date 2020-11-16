@@ -1,12 +1,13 @@
 <?php
 
-use App\Category;
 use App\User;
+use App\Slider;
 use App\Setting;
+use App\Category;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Slider;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,12 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::post('/contact/reply/send', 'ContactController@sendreply')->name('contact.reply.send');
         Route::post('/contact/delete/{id}', 'ContactController@destroy')->name('contact.delete');
 
+        Route::get('notifications', function() {
+            // return $notifications = DB::table('notifications')->get();
+            $notifications = DB::table('notifications')->orderBy('created_at', 'desc')->get();
+            return  view('notification.index', compact('notifications'));
+        })->name('notification');
+
         // Super admin;
         Route::middleware(['super_admin'])->group(function () {
             Route::resource('/user', 'UserController');
@@ -68,4 +75,6 @@ Route::get('/contact', 'FrontController@contact')->name('frontContact');
 Route::post('/subscribe', 'SubscriberController@store')->name('subscribe');
 
 Route::post('/contact', 'ContactController@store')->name('contact.store');
+
+
 

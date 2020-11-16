@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Profile;
 use App\User;
+use App\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
+use App\Notifications\ProfileNoti;
 
 class ProfileController extends Controller
 {
@@ -97,11 +98,16 @@ class ProfileController extends Controller
         $profile->update();
 
         $user_role = auth()->user()->role;
+
+        auth()->user()->notify(new ProfileNoti($profile));
+
         if($user_role == 1) {
             return redirect()->route('user.index');
         } else {
             return redirect()->route('profile.index');
         }
+
+        
         
     }
 

@@ -153,7 +153,7 @@ Theme Setting
                                                     </div>
                                                     <div class="form-group col-lg-6">
                                                         <label for="phone">phone</label>
-                                                        <input id="phone" type="number" class="form-control"
+                                                        <input id="phone" type="text" class="form-control"
                                                             placeholder="phone" name="phone" value="{{ old('phone') ? old('phone') : $setting->phone }}">
                                                             @if($errors->has('phone'))
                                                             <span style="color: red; width: 100%; text-align: right;">{{ $errors->first('phone') }}</span>

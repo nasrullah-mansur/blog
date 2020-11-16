@@ -90,17 +90,17 @@ All Posts
                                     </td>
                                     <td>
                                         <div style="width: 120px; text-align: center;">
-                                            <span>{{ $post->created_at->format('d/m/Y') }}</span>
+                                            <span>{{ $post->created_at->format('d/M/yy') }}</span>
                                         </div>
                                     </td>
                                     <td>
                                         <div style="width: 120px; text-align: center;">
-                                            <span>{{ $post->updated_at->format('d/m/Y') }}</span>
+                                            <span>{{ $post->updated_at->format('d/M/yy') }}</span>
                                         </div>
                                     </td>
                                     <td>
                                         <div style="width:150px;">
-                                            <span>{{ $post->user->profile->name }}</span>
+                                            <span>{{ ucwords($post->user->profile->name) }}</span>
                                         </div>
                                     </td>
                                     <td>

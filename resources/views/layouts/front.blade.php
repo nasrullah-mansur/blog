@@ -123,7 +123,7 @@
                             <h3 class="widget-title">Categories</h3>
                             <ul>
                                 @foreach($categories as $category)
-                                <li><a href="{{ route('post.category', $category->slug) }}">{{ $category->name}} <span>{{ count($category->posts) }}</span></a></li>
+                                <li><a href="{{ route('post.category', $category->slug) }}">{{ ucwords($category->name) }} <span>{{ count($category->posts) }}</span></a></li>
                                 @endforeach
                             </ul>
                         </div>
